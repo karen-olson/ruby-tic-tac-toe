@@ -1,44 +1,59 @@
-# Tic Tac Toe - Basic
-
-Tic Tac Toe - Basic is a command line application built for educational purposes.
-
-## Local Environment Requirements
-
-This project uses Ruby version 3.1.2
-
-## Installing Packages
-
-In the tic-tac-toe-basic directory, install the project's Ruby gems.
-
-```bash
+<h1 align=“center”>Tic Tac Toe</h1>
+This Tic Tac Toe game is a command line application built in Ruby.
+The initial functionality permits gameplay between two human players. The program will exit when gameplay ends: either when a player has won, or if the game has reached a draw.
+## Table of Contents
+- [Getting Started](#getting_started)
+    - [Installation](#installation)
+    - [Linting](#linting)
+    - [Testing](#testing)
+- [Usage](#usage)
+    - [Launching the Game](#launching)
+    - [Instructions](#instructions)
+- [Future Implementation](#future)
+<br><br>
+## Getting Started <a name = “getting_started”></a>
+### Installation <a name = “installation”></a>
+Clone this repo from the terminal:
+```
+git clone https://github.com/fifikim/tictactoe.git
+```
+cd to the program directory & install dependencies:
+```
 bundle install
 ```
-
-Change directories to the client directory, and install the project's node packages. 
-
-```bash
-cd client
-npm install
+### Linting <a name = “linting”></a>
+Run the linter:
 ```
-
-Remember to cd back to the tic-tac-toe-basic directory. 
-
-```bash
-cd ..
+bundle exec rubocop
 ```
-
-## Running Tests
-
-Use the following command to run the test suite. 
-
-```bash
+To safely autocorrect correctable offenses:
+```
+bundle exec rubocop -a
+```
+### Testing <a name = “testing”></a>
+Run tests:
+```
 bundle exec rspec
 ```
-
-## Starting the App
-
-Use the following command to start the command line application.
-
-```bash
-ruby lib/game.rb
+To automate the test suite:
 ```
+bundle exec guard init rspec
+bundle exec guard
+```
+<br>
+## Usage <a name=“usage”></a>
+### Launch the program <a name = “launching”></a>
+From program directory:
+```
+ruby tictactoe.sh
+```
+### Instructions
+Enter the number (1-9) of the space on the board where you want to move.
+Player 1 moves first and marks their spaces with an “X”. Player 2 marks with an “O”.
+To win, claim 3 adjacent spaces in a horizontal, vertical, or diagonal line.
+If there are no free spaces and no player has won, the game will end in a draw.
+<br>
+## Future Implementation <a name = “future”></a>
+- Add gameplay between a human player vs. AI player
+- Allow user to select the order of players
+<br><br>
