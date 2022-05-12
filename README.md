@@ -22,6 +22,11 @@ cd to the program directory & install dependencies:
 ```
 bundle install
 ```
+Initialize the guard auotmated test suite to use RSpec:
+````
+bundle exec guard init rspec
+````
+
 ### Linting
 Run the linter:
 ```
@@ -36,9 +41,8 @@ Run tests:
 ```
 bundle exec rspec
 ```
-To automate the test suite:
+To start the automated test suite:
 ```
-bundle exec guard init rspec
 bundle exec guard
 ```
 
