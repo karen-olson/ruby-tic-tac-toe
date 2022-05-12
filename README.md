@@ -50,7 +50,7 @@ bundle exec guard
 ### Launch the program
 From program directory:
 ```
-ruby game.rb
+ruby bin/run
 ```
 ### Instructions
 Enter the number (1-9) of the space on the board where you want to move.
