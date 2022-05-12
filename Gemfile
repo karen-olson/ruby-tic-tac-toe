@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 # gem "rails"
 
-ruby "3.1.2"
+ruby '3.1.0'
 
 group :development do
   gem 'guard-rspec'
