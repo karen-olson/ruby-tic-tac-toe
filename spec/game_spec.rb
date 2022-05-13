@@ -7,11 +7,11 @@ describe 'Tic Tac Toe Game' do
     @game = Game.new
   end
 
-  context '#display_board' do
-    it 'displays an empty board before any moves have been made' do
-      expect { @game.display_board }.to output("#{empty_board}\n").to_stdout
-    end
-  end
+  # context '#display_board' do
+  #   it 'displays an empty board before any moves have been made' do
+  #     expect { @game.display_board }.to output("#{empty_board}\n").to_stdout
+  #   end
+  # end
 
   context '#run' do
     it 'displays an empty board when the game starts' do
