@@ -2,31 +2,38 @@
 
 require 'game'
 
-class TestConsole
-  attr_reader :messages
-
-  def initialize
-    @messages = []
+describe 'Tic Tac Toe Game' do
+  class TestConsole
+    attr_reader :messages
+  
+    def initialize
+      @messages = []
+    end
+    
+    def output(message)
+      @messages << message
+    end
   end
   
-  def output(message)
-    @messages << message
+  class TestDisplay
+    def present 
+      "board"
+    end
   end
-end
-
-describe 'Tic Tac Toe Game' do
 
   context '#run' do
-    it 'displays an empty board when the game starts' do
+    it 'plays the game' do
       console = TestConsole.new
-      message = "Welcome to Tic Tac Toe!\n"
+      welcome_message = 'Hello player!'
+      display = TestDisplay.new
 
-      game = Game.new(console, message)
+      game = Game.new(console, welcome_message, display)
 
-      game.console.output(message)
-      # game.run
+      game.run
 
-      expect(game.console.messages).to include(message)
+      expected_messages = [welcome_message, "board"]
+
+      expect(game.console.messages).to eq(expected_messages)
 
       # How to build test double to make assertions about how the game class will 
       # interact with testconsole object? Assert on that instead. 
