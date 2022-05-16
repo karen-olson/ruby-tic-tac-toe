@@ -1,12 +1,13 @@
 #! /usr/bin/env ruby
-# frozen_string_literal: true
 
 require_relative '../lib/game'
 require_relative '../lib/console'
 require_relative '../lib/display'
+require_relative '../lib/prompt'
 
 console = Console.new($stdout)
 welcome_message = 'Welcome to Tic Tac Toe!'
 display = Display.new
-game = Game.new(console, welcome_message, display)
+prompt = Prompt.new
+game = Game.new(console, welcome_message, display, prompt)
 game.run
