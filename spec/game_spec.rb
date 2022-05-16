@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'game'
 
 class TestConsole
@@ -41,9 +39,5 @@ describe 'Tic Tac Toe Game' do
 
       # Build and test real console that you're going to inject in main (bin/run)
     end
-  end
-
-  def empty_board
-    "1 | 2 | 3\n-----------\n4 | 5 | 6\n-----------\n7 | 8 | 9"
   end
 end
