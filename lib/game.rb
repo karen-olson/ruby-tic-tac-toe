@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# Game class for Tic Tac Toe game
 class Game
   attr_reader :console, :welcome_message, :display
 
