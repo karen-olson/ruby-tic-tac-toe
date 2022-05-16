@@ -2,26 +2,27 @@
 
 # Game class for Tic Tac Toe game
 class Game
-  attr_reader :console, :message, :board
+  attr_reader :console, :welcome_message, :display
 
-  @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-  BOARD_DISPLAY = "#{@board[0]} | #{@board[1]} | #{@board[2]}" \
-                  "\n-----------\n#{@board[3]} | #{@board[4]} | #{@board[5]}" +
-                  "\n-----------\n#{@board[6]} | #{@board[7]} | #{@board[8]}".freeze
-
-  def initialize(console, message)
+  def initialize(console, welcome_message, display)
     @console = console
-    @message = message
+    @welcome_message = welcome_message
+    @display = display
   end
 
   def run
-    print_to_console
+    welcome_player
+    display_board
   end
 
   private
 
-  def print_to_console
-    @console.output(message)
+  def welcome_player
+    console.output(welcome_message)
   end
+
+  def display_board
+    console.output(display.present)
+  end
+
 end
