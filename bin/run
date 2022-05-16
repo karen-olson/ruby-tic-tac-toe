@@ -5,9 +5,8 @@ require_relative '../lib/game'
 require_relative '../lib/console'
 require_relative '../lib/display'
 
-
 console = Console.new($stdout)
-welcome_message = "Welcome to Tic Tac Toe!"
+welcome_message = 'Welcome to Tic Tac Toe!'
 display = Display.new
-game = Game.new(console, welcome_message)
+game = Game.new(console, welcome_message, display)
 game.run

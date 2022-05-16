@@ -1,4 +1,6 @@
-class Console 
+# frozen_string_literal: true
+
+class Console
   attr_reader :stdout
 
   def initialize(stdout)

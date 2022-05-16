@@ -24,5 +24,4 @@ class Game
   def display_board
     console.output(display.present)
   end
-
 end
