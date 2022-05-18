@@ -75,6 +75,7 @@ PLATFORMS
 
 DEPENDENCIES
   guard-rspec
+  pry
   rspec
   rubocop
 
