@@ -4,10 +4,12 @@ require_relative '../lib/game'
 require_relative '../lib/console'
 require_relative '../lib/display'
 require_relative '../lib/prompt'
+require_relative '../lib/board_manager'
 
-console = Console.new($stdout)
+console = Console.new($stdout, $stdin)
 welcome_message = 'Welcome to Tic Tac Toe!'
 display = Display.new
 prompt = Prompt.new
-game = Game.new(console, welcome_message, display, prompt)
+board_manager = BoardManager.new
+game = Game.new(console, welcome_message, display, prompt, board_manager)
 game.run
