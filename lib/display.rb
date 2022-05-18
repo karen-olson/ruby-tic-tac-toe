@@ -1,11 +1,11 @@
 class Display
-  def present
+  def present(board_values)
     <<~BOARD
-       1 | 2 | 3
+       #{board_values[0]} | #{board_values[1]} | #{board_values[2]}
       ---+---+---
-       4 | 5 | 6
+       #{board_values[3]} | #{board_values[4]} | #{board_values[5]}
       ---+---+---
-       7 | 8 | 9
+       #{board_values[6]} | #{board_values[7]} | #{board_values[8]}
     BOARD
   end
 end
