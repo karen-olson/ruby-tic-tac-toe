@@ -17,8 +17,8 @@ class TestConsole
 end
 
 class TestDisplay
-  def present(board_values)
-    board_values
+  def present(board)
+    board.values
   end
 end
 
@@ -28,15 +28,19 @@ class TestPrompt
   end
 end
 
-class TestBoardManager
-  attr_accessor :board_values
+class TestBoard
+  attr_accessor :values
 
   def initialize
-    @board_values = 'empty board'
+    @values = 'empty board'
+  end
+
+  def get_space(row, column)
+
   end
 
   def mark_space(_token, _space)
-    @board_values = 'board with one X mark'
+    @values = 'board with one X mark'
   end
 end
 
@@ -47,15 +51,15 @@ describe 'Game' do
       welcome_message = 'Hello player!'
       display = TestDisplay.new
       prompt = TestPrompt.new
-      board_manager = TestBoardManager.new
+      board = TestBoard.new
 
-      game = Game.new(console, welcome_message, display, prompt, board_manager)
+      game = Game.new(console, welcome_message, display, prompt, board)
 
       game.run
 
       expected_output = [welcome_message, 'empty board', 'choose a space', 'board with one X mark']
 
-      expect(game.console.messages).to eq(expected_output)
+      expect(console.messages).to eq(expected_output)
     end
   end
 end
