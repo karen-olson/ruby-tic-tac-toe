@@ -1,11 +1,11 @@
 class Display
-  def present(board_values)
+  def present(board)
     <<~BOARD
-       #{board_values[0]} | #{board_values[1]} | #{board_values[2]}
+       #{board.get_space(0, 0)} | #{board.get_space(0, 1)} | #{board.get_space(0, 2)}
       ---+---+---
-       #{board_values[3]} | #{board_values[4]} | #{board_values[5]}
+       #{board.get_space(1, 0)} | #{board.get_space(1, 1)} | #{board.get_space(1, 2)}
       ---+---+---
-       #{board_values[6]} | #{board_values[7]} | #{board_values[8]}
+       #{board.get_space(2, 0)} | #{board.get_space(2, 1)} | #{board.get_space(2, 2)}
     BOARD
   end
 end
