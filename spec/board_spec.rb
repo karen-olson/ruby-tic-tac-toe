@@ -13,17 +13,5 @@ describe 'Board' do
 
       expect(board.values).to eq(expected_values)
     end
-
-    it 'only accepts input of numbers 1-9' do
-      board = Board.new
-      token = 'X'
-      space = 10
-
-      board.mark_space(token, space)
-
-      expected_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-      expect(board.values).to eq(expected_values)
-    end
   end
 end
