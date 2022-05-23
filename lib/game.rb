@@ -2,8 +2,7 @@ require 'pry'
 
 class Game
   attr_reader :console, :welcome_message, :display, :prompt, :board
-
-  # attr_accessor :latest_move
+  attr_accessor :latest_move
 
   def initialize(console, welcome_message, display, prompt, board)
     @console = console
@@ -17,10 +16,16 @@ class Game
   def run
     welcome_player
     display_board
-    # prompt_player_to_choose_space
+    # start game loop
+    # until game_is_over
     get_move
+    # if I want the player to be able to end the game at any time, check for exit command here
     place_mark_on_board
     display_board
+    # check for conditions that would end the game
+    #     winner?, tie?
+    # end game loop
+    # display_results
   end
 
   private
@@ -33,21 +38,14 @@ class Game
     console.output(display.present(board))
   end
 
-  # def prompt_player_to_choose_space
-  #   # console.output(prompt.choose_a_space)
-  #   # message = "Enter a number 1-9: "
-  #   # validate = number_validator.valid?(1..9)
-  #   # space = prompt.call(message, validate)
-  # end
-
   def get_move
     message = "Enter a number 1-9: "
     error_message = "Please enter a valid number."
 
-    @latest_move = prompt.call(message, error_message)
+    self.latest_move = prompt.call(message, error_message)
   end
 
   def place_mark_on_board
-    board.mark_space('X', @latest_move)
+    board.mark_space('X', latest_move)
   end
 end
