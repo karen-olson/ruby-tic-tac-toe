@@ -7,12 +7,10 @@ class NumberValidator
     private
 
     def integer?(input)
-        begin
-            Integer(input)
-            true
-        rescue ArgumentError
-            false
-        end
+        Integer(input)
+        true
+    rescue ArgumentError
+        false
     end
 
 end
