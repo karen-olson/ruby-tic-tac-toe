@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'console'
 
 class TestStdout
@@ -15,19 +13,34 @@ class TestStdout
   end
 end
 
+class TestStdin
+  def gets
+    'user input'
+  end
+end
+
 describe 'Console' do
   context '#output' do
     it 'prints the given message to the console' do
       stdout = TestStdout.new
-      console = Console.new(stdout)
+      stdin = TestStdin.new
+      console = Console.new(stdout, stdin)
 
       message = 'Hello World'
 
       console.output(message)
 
-      # Not asserting that puts works, asserting that the integration of puts works
-      # (i.e. that puts is called in console)
       expect(stdout.messages).to include(message)
+    end
+  end
+
+  context '#gets_input' do
+    it 'returns user input' do
+      stdout = TestStdout.new
+      stdin = TestStdin.new
+      console = Console.new(stdout, stdin)
+
+      expect(console.gets_input).to eq('user input')
     end
   end
 end

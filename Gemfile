@@ -2,8 +2,6 @@
 
 source 'https://rubygems.org'
 
-# gem "rails"
-
 ruby '3.1.0'
 
 group :development do
@@ -13,3 +11,5 @@ end
 gem 'rspec'
 
 gem 'rubocop'
+
+gem 'pry'

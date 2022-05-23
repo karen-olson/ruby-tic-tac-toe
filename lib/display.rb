@@ -1,13 +1,11 @@
-# frozen_string_literal: true
-
 class Display
-  def present
+  def present(board)
     <<~BOARD
-       1 | 2 | 3
+       #{board.get_space(0, 0)} | #{board.get_space(0, 1)} | #{board.get_space(0, 2)}
       ---+---+---
-       4 | 5 | 6
+       #{board.get_space(1, 0)} | #{board.get_space(1, 1)} | #{board.get_space(1, 2)}
       ---+---+---
-       7 | 8 | 9
+       #{board.get_space(2, 0)} | #{board.get_space(2, 1)} | #{board.get_space(2, 2)}
     BOARD
   end
 end

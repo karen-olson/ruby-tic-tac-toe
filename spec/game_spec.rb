@@ -10,34 +10,54 @@ class TestConsole
   def output(message)
     @messages << message
   end
-end
 
-class TestDisplay
-  def present
-    'board'
+  def gets_input
+    1
   end
 end
 
-describe 'Tic Tac Toe Game' do
+class TestDisplay
+  def present(board)
+    board.values
+  end
+end
+
+class TestPrompt
+  def call(_message, _error_message)
+    8
+  end
+end
+
+class TestBoard
+  attr_accessor :values
+
+  def initialize
+    @values = 'empty board'
+  end
+
+  def get_space(row, column); end
+
+  def mark_space(token, space)
+    @values = "board with an #{token} mark in space #{space}"
+  end
+end
+
+describe 'Game' do
   context '#run' do
     it 'plays the game' do
       console = TestConsole.new
       welcome_message = 'Hello player!'
       display = TestDisplay.new
+      prompt = TestPrompt.new
+      board = TestBoard.new
 
-      game = Game.new(console, welcome_message, display)
+      game = Game.new(console, welcome_message, display, prompt, board)
 
       game.run
 
-      expected_messages = [welcome_message, 'board']
+      expected_output = [welcome_message, 'empty board', 'board with an X mark in space 8']
 
-      expect(game.console.messages).to eq(expected_messages)
-
-      # How to build test double to make assertions about how the game class will
-      # interact with testconsole object? Assert on that instead.
-      # Log string pattern in TDD by Example (could be array).
-
-      # Build and test real console that you're going to inject in main (bin/run)
+      expect(console.messages).to eq(expected_output)
     end
   end
 end
