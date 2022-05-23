@@ -23,8 +23,8 @@ class TestDisplay
 end
 
 class TestPrompt
-  def choose_a_space
-    'choose a space'
+  def call(message, error_message)
+    8
   end
 end
 
@@ -35,9 +35,7 @@ class TestBoard
     @values = 'empty board'
   end
 
-  def get_space(row, column)
-
-  end
+  def get_space(row, column); end
 
   def mark_space(_token, _space)
     @values = 'board with one X mark'

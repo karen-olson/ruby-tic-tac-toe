@@ -88,7 +88,7 @@ describe 'Prompt' do
       expect(valid_input).to eq(8)
     end
 
-    ### THESE TESTS MADE RSPEC MAD FOR SOME REASON, BUT ONLY AFTER ADDING THE UNTIL LOOP
+    ### THESE TESTS MADE RSPEC MAD, BUT ONLY AFTER ADDING THE UNTIL LOOP
 
     # it 'displays an error message for invalid input' do
     #   console = TestConsoleForInvalidInput.new

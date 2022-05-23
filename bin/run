@@ -5,11 +5,13 @@ require_relative '../lib/console'
 require_relative '../lib/display'
 require_relative '../lib/prompt'
 require_relative '../lib/board'
+require_relative '../lib/number_validator'
 
 console = Console.new($stdout, $stdin)
 welcome_message = 'Welcome to Tic Tac Toe!'
 display = Display.new
-prompt = Prompt.new
+number_validator = NumberValidator.new
+prompt = Prompt.new(console: console, number_validator: number_validator)
 board = Board.new
 game = Game.new(console, welcome_message, display, prompt, board)
 game.run

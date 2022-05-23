@@ -17,8 +17,8 @@ class Game
   def run
     welcome_player
     display_board
-    prompt_player_to_choose_space
-    gets_move
+    # prompt_player_to_choose_space
+    get_move
     place_mark_on_board
     display_board
   end
@@ -33,12 +33,18 @@ class Game
     console.output(display.present(board))
   end
 
-  def prompt_player_to_choose_space
-    console.output(prompt.choose_a_space)
-  end
+  # def prompt_player_to_choose_space
+  #   # console.output(prompt.choose_a_space)
+  #   # message = "Enter a number 1-9: "
+  #   # validate = number_validator.valid?(1..9)
+  #   # space = prompt.call(message, validate)
+  # end
 
-  def gets_move
-    @latest_move = console.gets_input
+  def get_move
+    message = "Enter a number 1-9: "
+    error_message = "Please enter a valid number."
+
+    @latest_move = prompt.call(message, error_message)
   end
 
   def place_mark_on_board
