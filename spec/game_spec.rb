@@ -37,8 +37,8 @@ class TestBoard
 
   def get_space(row, column); end
 
-  def mark_space(_token, _space)
-    @values = 'board with one X mark'
+  def mark_space(token, space)
+    @values = "board with an #{token} mark in space #{space}"
   end
 end
 
@@ -55,7 +55,7 @@ describe 'Game' do
 
       game.run
 
-      expected_output = [welcome_message, 'empty board', 'choose a space', 'board with one X mark']
+      expected_output = [welcome_message, 'empty board', 'board with an X mark in space 8']
 
       expect(console.messages).to eq(expected_output)
     end
