@@ -39,8 +39,8 @@ class Game
   end
 
   def get_move
-    message = "Enter a number 1-9: "
-    error_message = "Please enter a valid number."
+    message = 'Enter a number 1-9: '
+    error_message = 'Please enter a valid number.'
 
     self.latest_move = prompt.call(message, error_message)
   end

@@ -11,7 +11,7 @@ console = Console.new($stdout, $stdin)
 welcome_message = 'Welcome to Tic Tac Toe!'
 display = Display.new
 number_validator = NumberValidator.new
-prompt = Prompt.new(console: console, number_validator: number_validator)
+prompt = Prompt.new(console:, number_validator:)
 board = Board.new
 game = Game.new(console, welcome_message, display, prompt, board)
 game.run

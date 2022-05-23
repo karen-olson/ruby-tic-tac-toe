@@ -23,7 +23,7 @@ class TestDisplay
 end
 
 class TestPrompt
-  def call(message, error_message)
+  def call(_message, _error_message)
     8
   end
 end

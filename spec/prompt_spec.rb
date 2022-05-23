@@ -2,16 +2,15 @@ require 'prompt'
 require 'pry'
 
 class TestConsoleForValidInput
-  def output(message)
-  end
+  def output(message) end
 
   def gets_input
-    "8"
+    '8'
   end
 end
 
 class TestNumberValidatorForValidInput
-  def valid?(input, range)
+  def valid?(_input, _range)
     true
   end
 end
@@ -22,7 +21,7 @@ class TestConsoleForRepeatedPrompts
 
   def initialize
     @iteration = 0
-    @return_values = ["sadf", "3"]
+    @return_values = %w[sadf 3]
     @messages = []
   end
 
@@ -44,8 +43,8 @@ class TestNumberValidatorForRepeatedPrompts
     @iteration = 0
     @return_values = [false, true]
   end
-  
-  def valid?(input, range)
+
+  def valid?(_input, _range)
     return_value = return_values[@iteration]
     @iteration += 1
     return_value
@@ -57,10 +56,10 @@ describe 'Prompt' do
     it 'returns valid user input' do
       console = TestConsoleForValidInput.new
       number_validator = TestNumberValidatorForValidInput.new
-      prompt = Prompt.new(console: console, number_validator: number_validator)
+      prompt = Prompt.new(console:, number_validator:)
 
-      message = "Choose a space. Enter 1-9: "
-      error_message = "Please enter a valid number."
+      message = 'Choose a space. Enter 1-9: '
+      error_message = 'Please enter a valid number.'
       valid_input = prompt.call(message, error_message)
 
       expect(valid_input).to eq(8)
@@ -69,11 +68,11 @@ describe 'Prompt' do
     it 'continues prompting the user until valid input is received' do
       console = TestConsoleForRepeatedPrompts.new
       number_validator = TestNumberValidatorForRepeatedPrompts.new
-      prompt = Prompt.new(console: console, number_validator: number_validator)
+      prompt = Prompt.new(console:, number_validator:)
 
-      message = "Choose a space. Enter 1-9: "
-      error_message = "Please enter a valid number."
-      space_selection = prompt.call(message, error_message)
+      message = 'Choose a space. Enter 1-9: '
+      error_message = 'Please enter a valid number.'
+      prompt.call(message, error_message)
 
       expect(console.messages).to eq([message, error_message, message])
     end

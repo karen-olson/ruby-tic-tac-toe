@@ -1,7 +1,6 @@
 require 'pry'
 
 class Prompt
-
   attr_reader :console, :number_validator
   attr_accessor :valid_input
 
@@ -12,7 +11,7 @@ class Prompt
   end
 
   def call(message, error_message)
-    until (valid_input)
+    until valid_input
       console.output(message)
       input = console.gets_input
       range = 1..9
@@ -32,5 +31,4 @@ class Prompt
       console.output(error_message)
     end
   end
-
 end

@@ -1,16 +1,14 @@
 class NumberValidator
+  def valid?(input, range)
+    integer?(input) && range.include?(Integer(input))
+  end
 
-    def valid?(input, range)
-        integer?(input) && range.include?(Integer(input))
-    end
+  private
 
-    private
-
-    def integer?(input)
-        Integer(input)
-        true
-    rescue ArgumentError
-        false
-    end
-
+  def integer?(input)
+    Integer(input)
+    true
+  rescue ArgumentError
+    false
+  end
 end
