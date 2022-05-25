@@ -10,35 +10,17 @@ class TestConsole
   def output(message)
     @messages << message
   end
-
-  def gets_input
-    1
-  end
 end
 
-class TestDisplay
-  def present(board)
-    board.values
-  end
-end
+class TestGameLooper
+  attr_reader :console
 
-class TestPrompt
-  def call(_message, _error_message)
-    8
-  end
-end
-
-class TestBoard
-  attr_accessor :values
-
-  def initialize
-    @values = 'empty board'
+  def initialize(console)
+    @console = console
   end
 
-  def get_space(row, column); end
-
-  def mark_space(token, space)
-    @values = "board with an #{token} mark in space #{space}"
+  def loop
+    console.output('Looping')
   end
 end
 
@@ -47,15 +29,13 @@ describe 'Game' do
     it 'plays the game' do
       console = TestConsole.new
       welcome_message = 'Hello player!'
-      display = TestDisplay.new
-      prompt = TestPrompt.new
-      board = TestBoard.new
+      game_looper = TestGameLooper.new(console)
 
-      game = Game.new(console, welcome_message, display, prompt, board)
+      game = Game.new(console, welcome_message, game_looper)
 
       game.run
 
-      expected_output = [welcome_message, 'empty board', 'board with an X mark in space 8']
+      expected_output = [welcome_message, 'Looping']
 
       expect(console.messages).to eq(expected_output)
     end
