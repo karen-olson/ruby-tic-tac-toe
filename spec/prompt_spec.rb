@@ -17,7 +17,7 @@ end
 
 class TestConsoleForRepeatedPrompts
   attr_reader :return_values
-  attr_accessor :messages
+  attr_accessor :messages, :iteration
 
   def initialize
     @iteration = 0
@@ -27,7 +27,7 @@ class TestConsoleForRepeatedPrompts
 
   def gets_input
     return_value = return_values[@iteration]
-    @iteration += 1
+    self.iteration += 1
     return_value
   end
 

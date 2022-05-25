@@ -16,6 +16,7 @@ class Board
 
   def full?
     unique_values = self.values.uniq
-    unique_values == ['X', 'O']
+    # unique_values == ['X', 'O']
+    unique_values == ['X']
   end
 end
