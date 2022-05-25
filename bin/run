@@ -1,11 +1,19 @@
 #! /usr/bin/env ruby
 
 require_relative '../lib/game'
-require_relative '../lib/console'
 require_relative '../lib/game_looper'
+require_relative '../lib/console'
+require_relative '../lib/display'
+require_relative '../lib/prompt'
+require_relative '../lib/board'
+require_relative '../lib/number_validator'
 
-console = Console.new($stdout, $stdin)
-game_looper = GameLooper.new
 welcome_message = 'Welcome to Tic Tac Toe!'
+console = Console.new($stdout, $stdin)
+number_validator = NumberValidator.new
+display = Display.new
+prompt = Prompt.new(console: console, number_validator: number_validator)
+board = Board.new
+game_looper = GameLooper.new(console: console, display: display, prompt: prompt, board: board)
 game = Game.new(console: console, game_looper: game_looper, welcome_message: welcome_message)
 game.run
