@@ -13,4 +13,9 @@ class Board
   def mark_space(token, space)
     values[space - 1] = token
   end
+
+  def full?
+    unique_values = self.values.uniq
+    unique_values == ['X', 'O']
+  end
 end

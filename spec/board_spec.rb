@@ -14,4 +14,22 @@ describe 'Board' do
       expect(board.values).to eq(expected_values)
     end
   end
+
+  context '.full?' do
+    it 'returns true when the board is full' do
+      board = Board.new
+
+      board.values = ['X', 'O', 'O', 'X', 'X', 'O', 'X', 'X', 'O']
+
+      expect(board.full?).to eq(true)
+    end
+
+    it 'returns false when the board is not full' do
+      board = Board.new
+
+      board.values = ['X', 1, 'O', 'X', 'X', 'O', 'X', 'X', 'O']
+
+      expect(board.full?).to eq(false)
+    end
+  end
 end
