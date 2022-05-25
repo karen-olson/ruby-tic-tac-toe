@@ -31,7 +31,7 @@ describe 'Game' do
       welcome_message = 'Hello player!'
       game_looper = TestGameLooper.new(console)
 
-      game = Game.new(console, welcome_message, game_looper)
+      game = Game.new(console: console, welcome_message: welcome_message, game_looper: game_looper)
 
       game.run
 
