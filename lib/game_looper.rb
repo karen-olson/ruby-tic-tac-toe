@@ -1,14 +1,10 @@
-# dependencies:
-#   board?
-#   console
-#   prompt
-#   display
+require 'pry'
 
 class GameLooper
     attr_reader :console, :welcome_message, :display, :prompt, :board
     attr_accessor :latest_move
     
-    def initialize(console, display, prompt, board)
+    def initialize(console:, display:, prompt:, board:)
         @console = console
         @welcome_message = welcome_message
         @display = display
@@ -18,19 +14,22 @@ class GameLooper
     end
 
     def loop
-        # until game_is_over
+        until game_is_over
             take_turn
-        # end
+        end
+        display_board
     end
 
     private 
 
+    def game_is_over
+        board.full?
+    end
+
     def take_turn
         display_board
         get_move
-        place_mark_on_board
-        # remove this once looping is introduced
-        display_board
+        mark_board
     end
 
     def display_board
@@ -41,11 +40,11 @@ class GameLooper
     def get_move
         message = 'Enter a number 1-9: '
         error_message = 'Please enter a valid number.'
-
+        
         self.latest_move = prompt.call(message, error_message)
     end
 
-    def place_mark_on_board
+    def mark_board
         board.mark_space('X', latest_move)
     end
 end

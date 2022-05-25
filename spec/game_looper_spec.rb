@@ -10,15 +10,11 @@ class TestConsole
     def output(message)
       @messages << message
     end
-  
-    def gets_input
-      1
-    end
   end
   
   class TestDisplay
     def present(board)
-      board.values
+      'looping'
     end
   end
   
@@ -27,34 +23,39 @@ class TestConsole
       8
     end
   end
-  
-  class TestBoard
-    attr_accessor :values
-  
-    def initialize
-      @values = 'empty board'
+
+  class TestBoardForFullBoard
+    attr_accessor :board_fullness_iterations, :values, :loop_number
+
+    def initialize(board_fullness_iterations)
+      @board_fullness_iterations = board_fullness_iterations
+      @values = 'board values'
+      @loop_number = 0
     end
-  
-    def get_space(row, column); end
-  
-    def mark_space(token, space)
-      @values = "board with an #{token} mark in space #{space}"
+
+    def full?
+      board_fullness = board_fullness_iterations[loop_number]
+      self.loop_number += 1
+      board_fullness
     end
+
+    def mark_space(token, space) end
   end
 
 describe 'Game Looper' do
     context '#loop' do
-        it 'takes turns until the game is over' do
+        it 'stops looping when the board is full' do
             console = TestConsole.new
             display = TestDisplay.new
             prompt = TestPrompt.new
-            board = TestBoard.new
+            board_fullness_iterations = [false, false, false, true]
+            board = TestBoardForFullBoard.new(board_fullness_iterations)
             
-            game_looper = GameLooper.new(console, display, prompt, board)
+            game_looper = GameLooper.new(console: console, display: display, prompt: prompt, board: board)
 
             game_looper.loop
 
-            expected_output = ['empty board', 'board with an X mark in space 8']
+            expected_output = ['looping', 'looping', 'looping']
 
             expect(console.messages).to eq(expected_output)
         end
