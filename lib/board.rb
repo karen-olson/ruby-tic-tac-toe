@@ -15,8 +15,8 @@ class Board
   end
 
   def full?
-    unique_values = self.values.uniq
-    # unique_values == ['X', 'O']
-    unique_values == ['X']
+    open_board = (1..9).to_a
+    open_spaces = self.values & open_board
+    open_spaces.empty?
   end
 end
