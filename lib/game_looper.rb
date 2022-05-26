@@ -1,21 +1,22 @@
 require 'pry'
 
 class GameLooper
-    attr_reader :console, :welcome_message, :display, :prompt, :board
-    attr_accessor :latest_move
+    private
+    attr_reader :console, :welcome_message, :display, :prompt, :board, :players
     
-    def initialize(console:, display:, prompt:, board:)
+    public
+    def initialize(console:, display:, prompt:, board:, players:)
         @console = console
         @welcome_message = welcome_message
         @display = display
         @prompt = prompt
         @board = board
-        @latest_move = nil
+        @players = players
     end
 
     def loop
         until game_is_over
-            take_turn
+            take_turns(players)
         end
         display_board
     end
@@ -26,10 +27,16 @@ class GameLooper
         board.full?
     end
 
-    def take_turn
+    def take_turns(players)
+        players.each do |player| 
+            take_turn(player) unless game_is_over
+        end
+    end
+
+    def take_turn(player)
         display_board
-        get_move
-        mark_board
+        move = get_move 
+        mark_board(player, move) 
     end
 
     def display_board
@@ -41,10 +48,10 @@ class GameLooper
         message = 'Enter a number 1-9: '
         error_message = 'Please enter a valid number.'
         
-        self.latest_move = prompt.call(message, error_message)
+        move = prompt.call(message, error_message)
     end
 
-    def mark_board
-        board.mark_space('X', latest_move)
+    def mark_board(player, move)
+        board.mark_space(player.marker, move)
     end
 end
