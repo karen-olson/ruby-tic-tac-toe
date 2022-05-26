@@ -1,6 +1,6 @@
 require 'game_looper'
 
-class TestConsole
+  class TestConsole
     attr_reader :messages
   
     def initialize
@@ -11,53 +11,74 @@ class TestConsole
       @messages << message
     end
   end
+
+  class TestPlayer
+    attr_reader :marker
+
+    def initialize(marker)
+      @marker = marker
+    end
+  end
+
+  class TestBoard
+    def mark_space(_message, _error_message)
+    end
+  end
   
   class TestDisplay
-    def present(board)
-      'looping'
-    end
   end
-  
+
   class TestPrompt
     def call(_message, _error_message)
-      8
     end
-  end
-
-  class TestBoardForFullBoard
-    attr_accessor :board_fullness_iterations, :values, :loop_number
-
-    def initialize(board_fullness_iterations)
-      @board_fullness_iterations = board_fullness_iterations
-      @values = 'board values'
-      @loop_number = 0
-    end
-
-    def full?
-      board_fullness = board_fullness_iterations[loop_number]
-      self.loop_number += 1
-      board_fullness
-    end
-
-    def mark_space(token, space) end
   end
 
 describe 'Game Looper' do
     context '#loop' do
         it 'stops looping when the board is full' do
             console = TestConsole.new
-            display = TestDisplay.new
             prompt = TestPrompt.new
-            board_fullness_iterations = [false, false, false, true]
-            board = TestBoardForFullBoard.new(board_fullness_iterations)
+            board = TestBoard.new
+            display = TestDisplay.new
+            player_one = TestPlayer.new('X')
+            player_two = TestPlayer.new('O')
+            players = [player_one, player_two]
             
-            game_looper = GameLooper.new(console: console, display: display, prompt: prompt, board: board)
+            allow(board).to receive(:full?).and_return(false, false, false, false, true)
+            
+            allow(display).to receive(:present).and_return('board', 'board', 'full_board')
+
+            game_looper = GameLooper.new(console: console, prompt: prompt, board: board, display: display, players: players)
 
             game_looper.loop
 
-            expected_output = ['looping', 'looping', 'looping']
+            expected_console_messages = ['board', 'board', 'full_board']
 
-            expect(console.messages).to eq(expected_output)
+            expect(console.messages).to eq(expected_console_messages)
         end
+       
+        # it 'gives each player a turn' do
+        #     console = TestConsole.new
+        #     prompt = TestPrompt.new
+        #     board = TestBoard.new
+        #     display = TestDisplay.new
+        #     player_one = TestPlayer.new('X')
+        #     player_two = TestPlayer.new('O')
+        #     players = [player_one, player_two]
+
+        #     allow(board).to receive(:full?).and_return(false, false, true)
+        #     allow(board).to receive(:mark_space).and_return('empty board', 'board with an X in space 8', 'board with an O in space 2')
+        #     allow(board).to receive(:values).and_return()
+
+        #     allow(display).to receive(:present).and_return()
+            
+        #     game_looper = GameLooper.new(console: console, prompt:    prompt, board: board, display: display, players: players)
+
+        #     game_looper.loop
+
+        #     expected_console_messages = ['empty board', 'board with X in space 8', 'board with O in space 2']
+
+        #     expect(console.messages).to eq(expected_console_messages)
+        # end
     end
 end
