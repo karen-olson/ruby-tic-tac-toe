@@ -14,15 +14,23 @@ class TestConsole
 end
 
 class TestGameLooper
+  attr_reader :console
 
+  def initialize(console)
+    @console = console
+  end
+
+  def loop
+    console.output('Looping')
+  end
 end
 
 describe 'Game' do
   context '#run' do
     it 'plays the game' do
       console = TestConsole.new
-      game_looper = TestGameLooper.new
-      allow(game_looper).to receive(:loop).and_return('Looping')
+      game_looper = TestGameLooper.new(console)
+      # allow(game_looper).to receive(:loop).and_return('Looping')
 
       game = Game.new(console: console, game_looper: game_looper)
 
