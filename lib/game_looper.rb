@@ -25,6 +25,7 @@ class GameLooper
     attr_reader :console, :welcome_message, :display, :prompt, :board, :players
 
     def game_is_over
+        # binding.pry
         board.full?
     end
 
