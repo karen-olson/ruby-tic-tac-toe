@@ -1,13 +1,12 @@
 class AvailabilityValidator
-    attr_reader :board
+  attr_reader :board
 
-    def initialize(board:)
-        @board = board
-    end
+  def initialize(board:)
+    @board = board
+  end
 
-    def available?(input)
-        space = board.values[input - 1]
-        space.is_a?(Integer)
-    end
-
+  def available?(input)
+    space = board.values[input - 1]
+    space.is_a?(Integer)
+  end
 end

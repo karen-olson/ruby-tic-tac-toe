@@ -1,11 +1,10 @@
 class Player
+  # Should this be a value object?
+  # Should it have a select method?
 
-    # Should this be a value object? 
-    # Should it have a select method?
+  attr_reader :marker
 
-    attr_reader :marker
-
-    def initialize(marker:)
-        @marker = marker
-    end
+  def initialize(marker:)
+    @marker = marker
+  end
 end

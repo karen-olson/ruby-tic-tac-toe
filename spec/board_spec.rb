@@ -19,7 +19,7 @@ describe 'Board' do
     it 'returns true when the board is full' do
       board = Board.new
 
-      board.values = ['X', 'O', 'O', 'X', 'X', 'O', 'X', 'X', 'O']
+      board.values = %w[X O O X X O X X O]
 
       expect(board.full?).to eq(true)
     end

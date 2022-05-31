@@ -19,14 +19,10 @@ end
 class TestAvailabilityValidator
 end
 
-# class TestBoard
-# end
-
 describe 'Prompt' do
   context '#call' do
     it 'returns valid user input' do
       console = TestConsole.new
-      # board = TestBoard.new
       availability_validator = TestAvailabilityValidator.new
       number_validator = TestNumberValidator.new
 
@@ -45,12 +41,10 @@ describe 'Prompt' do
 
     it 'continues prompting the user until valid input is received' do
       console = TestConsole.new
-      # board = TestBoard.new
       availability_validator = TestAvailabilityValidator.new
       number_validator = TestNumberValidator.new
 
       allow(console).to receive(:gets_input).and_return('asdf', 1)
-      
       allow(number_validator).to receive(:valid?).and_return(false, true)
       allow(availability_validator).to receive(:available?).and_return(true)
 

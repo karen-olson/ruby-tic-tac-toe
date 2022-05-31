@@ -24,7 +24,7 @@ describe 'Console' do
     it 'prints the given message to the console' do
       stdout = TestStdout.new
       stdin = TestStdin.new
-      console = Console.new(stdout, stdin)
+      console = Console.new(stdout:, stdin:)
 
       message = 'Hello World'
 
@@ -38,7 +38,7 @@ describe 'Console' do
     it 'returns user input' do
       stdout = TestStdout.new
       stdin = TestStdin.new
-      console = Console.new(stdout, stdin)
+      console = Console.new(stdout:, stdin:)
 
       expect(console.gets_input).to eq('user input')
     end

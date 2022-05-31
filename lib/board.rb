@@ -16,7 +16,7 @@ class Board
 
   def full?
     open_board = (1..9).to_a
-    open_spaces = self.values & open_board
+    open_spaces = values & open_board
     open_spaces.empty?
   end
 end

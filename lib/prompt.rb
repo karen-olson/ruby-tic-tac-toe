@@ -13,7 +13,7 @@ class Prompt
 
   def call(message, error_message)
     @valid_input = nil
-    
+
     until valid_input
       console.output(message)
       input = console.gets_input
