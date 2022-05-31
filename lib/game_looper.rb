@@ -1,8 +1,7 @@
 require 'pry'
 
 class GameLooper
-    private
-    attr_reader :console, :welcome_message, :display, :prompt, :board, :players
+    # private
     
     public
     def initialize(console:, display:, prompt:, board:, players:)
@@ -22,6 +21,8 @@ class GameLooper
     end
 
     private 
+
+    attr_reader :console, :welcome_message, :display, :prompt, :board, :players
 
     def game_is_over
         board.full?

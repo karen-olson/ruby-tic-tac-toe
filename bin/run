@@ -10,7 +10,6 @@ require_relative '../lib/number_validator'
 require_relative '../lib/availability_validator'
 require_relative '../lib/player'
 
-welcome_message = 'Welcome to Tic Tac Toe!'
 console = Console.new($stdout, $stdin)
 display = Display.new
 board = Board.new
@@ -21,5 +20,5 @@ player_one = Player.new(marker: 'X')
 player_two = Player.new(marker: 'O')
 players = [player_one, player_two]
 game_looper = GameLooper.new(console: console, display: display, prompt: prompt, board: board, players: players)
-game = Game.new(console: console, game_looper: game_looper, welcome_message: welcome_message)
+game = Game.new(console: console, game_looper: game_looper)
 game.run
