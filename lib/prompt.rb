@@ -1,13 +1,13 @@
 require 'pry'
 
 class Prompt
-  attr_reader :console, :number_validator, :availability_validator
+  attr_reader :console, :board, :number_validator
   attr_accessor :valid_input
 
-  def initialize(console:, number_validator:, availability_validator:)
+  def initialize(console:, board:, number_validator:)
     @console = console
+    @board = board
     @number_validator = number_validator
-    @availability_validator = availability_validator
     @valid_input = nil
   end
 
@@ -28,7 +28,7 @@ class Prompt
   private
 
   def validate_input(input, range, error_message)
-    if number_validator.valid?(input, range) && availability_validator.available?(Integer(input))
+    if number_validator.valid?(input, range) && board.available?(input)
       self.valid_input = Integer(input)
     else
       console.output(error_message)

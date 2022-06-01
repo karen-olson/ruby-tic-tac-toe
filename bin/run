@@ -7,16 +7,14 @@ require_relative '../lib/display'
 require_relative '../lib/prompt'
 require_relative '../lib/board'
 require_relative '../lib/number_validator'
-require_relative '../lib/availability_validator'
 require_relative '../lib/player'
 
 console = Console.new(stdout: $stdout, stdin: $stdin)
 display = Display.new
 board = Board.new
 number_validator = NumberValidator.new
-availability_validator = AvailabilityValidator.new(board:)
 prompt = Prompt.new(console:, number_validator:,
-                    availability_validator:)
+                    board:)
 player_one = Player.new(marker: 'X')
 player_two = Player.new(marker: 'O')
 players = [player_one, player_two]

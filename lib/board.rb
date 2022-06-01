@@ -19,4 +19,9 @@ class Board
     open_spaces = values & open_board
     open_spaces.empty?
   end
+
+  def available?(input)
+    space = self.values[Integer(input) - 1]
+    space.is_a?(Integer)
+  end
 end

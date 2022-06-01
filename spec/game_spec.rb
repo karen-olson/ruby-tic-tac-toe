@@ -6,7 +6,7 @@ require 'prompt'
 require 'board'
 require 'player'
 require 'number_validator'
-require 'availability_validator'
+require 'board'
 require 'stringio'
 require 'pry'
 
@@ -56,8 +56,7 @@ describe 'Game' do
       console = Console.new(stdin: $stdin, stdout: $stdout)
       board = Board.new
       number_validator = NumberValidator.new
-      availability_validator = AvailabilityValidator.new(board:)
-      prompt = Prompt.new(console:, number_validator:, availability_validator:)
+      prompt = Prompt.new(console:, number_validator:, board:)
       display = Display.new
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
       game_looper = GameLooper.new(console:, display:, prompt:, board:, players:)
