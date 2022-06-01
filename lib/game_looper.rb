@@ -5,7 +5,6 @@ class GameLooper
 
   def initialize(console:, display:, prompt:, board:, players:)
     @console = console
-    @welcome_message = welcome_message
     @display = display
     @prompt = prompt
     @board = board
@@ -19,7 +18,7 @@ class GameLooper
 
   private
 
-  attr_reader :console, :welcome_message, :display, :prompt, :board, :players
+  attr_reader :console, :display, :prompt, :board, :players
 
   def game_is_over
     # binding.pry

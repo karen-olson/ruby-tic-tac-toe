@@ -1,11 +1,10 @@
 require 'pry'
 
 class Game
-  attr_reader :console, :welcome_message, :game_looper
+  attr_reader :console, :game_looper
 
   def initialize(console:, game_looper:)
     @console = console
-    @welcome_message = welcome_message
     @game_looper = game_looper
   end
 
