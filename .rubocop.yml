@@ -10,6 +10,7 @@ Metrics/BlockLength:
   Exclude:
   - spec/game_spec.rb
   - spec/prompt_spec.rb
+  - spec/board_spec.rb
 AllCops:
   NewCops: enable
   Exclude:

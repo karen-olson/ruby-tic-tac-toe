@@ -9,8 +9,6 @@ class NumberValidator
 
   def integer?(input)
     number = input.to_i
-    number.to_s == input ? true : false
+    number.to_s == input
   end
 end
-
-

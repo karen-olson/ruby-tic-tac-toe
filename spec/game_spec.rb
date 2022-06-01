@@ -6,7 +6,6 @@ require 'prompt'
 require 'board'
 require 'player'
 require 'number_validator'
-require 'board'
 require 'stringio'
 require 'pry'
 
