@@ -28,10 +28,16 @@ class Prompt
   private
 
   def validate_input(input, range, error_message)
-    if number_validator.valid?(input, range) && board.available?(input)
-      self.valid_input = Integer(input)
+    valid_space_number = valid_space_number(input, range)
+
+    if valid_space_number && board.available?(valid_space_number)
+      self.valid_input = valid_space_number
     else
       console.output(error_message)
     end
+  end
+
+  def valid_space_number(input, range)
+    Integer(input) if number_validator.valid?(input, range)
   end
 end

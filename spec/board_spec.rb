@@ -38,14 +38,14 @@ describe 'Board' do
       board = Board.new
       board.values = ['X', 2, 3, 'O', 5, 6, 'X', 8, 9]
 
-      expect(board.available?('6')).to eq(true)
+      expect(board.available?(6)).to eq(true)
     end
 
     it 'returns false when the space is not available' do
       board = Board.new
       board.values = ['X', 2, 3, 'O', 5, 6, 'X', 8, 9]
 
-      expect(board.available?('7')).to eq(false)
+      expect(board.available?(7)).to eq(false)
     end
   end
 end

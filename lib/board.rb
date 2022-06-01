@@ -21,7 +21,7 @@ class Board
   end
 
   def available?(input)
-    space = values[Integer(input) - 1]
+    space = values[input - 1]
     space.is_a?(Integer)
   end
 end
