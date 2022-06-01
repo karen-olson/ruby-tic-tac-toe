@@ -13,6 +13,6 @@ class Console
   end
 
   def gets_input
-    stdin.gets
+    stdin.gets.chomp
   end
 end
