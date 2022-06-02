@@ -4,6 +4,13 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/AccessorMethodName:
   Enabled: false
+Lint/EmptyClass:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+  - spec/game_spec.rb
+  - spec/prompt_spec.rb
+  - spec/board_spec.rb
 AllCops:
   NewCops: enable
   Exclude:

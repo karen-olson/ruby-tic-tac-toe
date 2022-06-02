@@ -1,7 +1,9 @@
+require 'pry'
+
 class Console
   attr_reader :stdout, :stdin
 
-  def initialize(stdout, stdin)
+  def initialize(stdout: $stdout, stdin: $stdin)
     @stdout = stdout
     @stdin = stdin
   end
@@ -11,6 +13,6 @@ class Console
   end
 
   def gets_input
-    stdin.gets
+    stdin.gets.chomp
   end
 end

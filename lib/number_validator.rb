@@ -1,3 +1,5 @@
+require 'pry'
+
 class NumberValidator
   def valid?(input, range)
     integer?(input) && range.include?(Integer(input))
@@ -6,9 +8,7 @@ class NumberValidator
   private
 
   def integer?(input)
-    Integer(input)
-    true
-  rescue ArgumentError
-    false
+    number = input.to_i
+    number.to_s == input
   end
 end

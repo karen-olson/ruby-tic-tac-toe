@@ -1,34 +1,11 @@
 require 'prompt'
 require 'pry'
 
-class TestConsoleForValidInput
-  def output(message) end
-
-  def gets_input
-    '8'
-  end
-end
-
-class TestNumberValidatorForValidInput
-  def valid?(_input, _range)
-    true
-  end
-end
-
-class TestConsoleForRepeatedPrompts
-  attr_reader :return_values
+class TestConsole
   attr_accessor :messages
 
   def initialize
-    @iteration = 0
-    @return_values = %w[sadf 3]
     @messages = []
-  end
-
-  def gets_input
-    return_value = return_values[@iteration]
-    @iteration += 1
-    return_value
   end
 
   def output(message)
@@ -36,27 +13,24 @@ class TestConsoleForRepeatedPrompts
   end
 end
 
-class TestNumberValidatorForRepeatedPrompts
-  attr_reader :return_values
+class TestNumberValidator
+end
 
-  def initialize
-    @iteration = 0
-    @return_values = [false, true]
-  end
-
-  def valid?(_input, _range)
-    return_value = return_values[@iteration]
-    @iteration += 1
-    return_value
-  end
+class TestBoard
 end
 
 describe 'Prompt' do
   context '#call' do
     it 'returns valid user input' do
-      console = TestConsoleForValidInput.new
-      number_validator = TestNumberValidatorForValidInput.new
-      prompt = Prompt.new(console:, number_validator:)
+      console = TestConsole.new
+      board = TestBoard.new
+      number_validator = TestNumberValidator.new
+
+      allow(console).to receive(:gets_input).and_return(8)
+      allow(number_validator).to receive(:valid?).and_return(true)
+      allow(board).to receive(:available?).and_return(true)
+
+      prompt = Prompt.new(console:, number_validator:, board:)
 
       message = 'Choose a space. Enter 1-9: '
       error_message = 'Please enter a valid number.'
@@ -66,14 +40,21 @@ describe 'Prompt' do
     end
 
     it 'continues prompting the user until valid input is received' do
-      console = TestConsoleForRepeatedPrompts.new
-      number_validator = TestNumberValidatorForRepeatedPrompts.new
-      prompt = Prompt.new(console:, number_validator:)
+      console = TestConsole.new
+      board = TestBoard.new
+      number_validator = TestNumberValidator.new
+
+      allow(console).to receive(:gets_input).and_return('asdf', 1)
+      allow(number_validator).to receive(:valid?).and_return(false, true)
+      allow(board).to receive(:available?).and_return(true)
+
+      prompt = Prompt.new(console:, number_validator:, board:)
 
       message = 'Choose a space. Enter 1-9: '
       error_message = 'Please enter a valid number.'
-      prompt.call(message, error_message)
+      valid_input = prompt.call(message, error_message)
 
+      expect(valid_input).to eq(1)
       expect(console.messages).to eq([message, error_message, message])
     end
   end
