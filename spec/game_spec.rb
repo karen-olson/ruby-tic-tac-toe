@@ -62,9 +62,9 @@ describe 'Game' do
 
       allow($stdin).to receive(:gets).and_return('9')
       board.values = [ 
-                      'X', '0', '0', 
-                      'X', 'X', 'O', 
-                      'O', 'O',  9 
+                      'X', '0',  3, 
+                       4,  'X', 'O', 
+                       7,   8,   9 
                     ]
 
       game.run
