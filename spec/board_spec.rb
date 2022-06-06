@@ -1,6 +1,20 @@
 require 'board'
 
 class TestOutcomeChecker
+  attr_reader :test_win, :test_draw
+
+  def initialize(test_win: false, test_draw: false)
+    @test_win = test_win
+    @test_draw = test_draw
+  end
+
+  def win?(board)
+    test_win
+  end
+
+  def draw?(board)
+    test_draw
+  end
 end
 
 describe 'Board' do
@@ -128,17 +142,15 @@ describe 'Board' do
 
   context '#has_draw?' do
     it 'returns true when the outcome checker finds a draw' do
-      outcome_checker = TestOutcomeChecker.new
+      outcome_checker = TestOutcomeChecker.new(test_draw: true, test_win: false)
       board = Board.new(outcome_checker:)
-      allow(outcome_checker).to receive(:draw?).and_return(true)
 
       expect(board.has_draw?).to eq(true)
     end
 
     it 'returns false when the outcome checker does not find a draw' do
-      outcome_checker = TestOutcomeChecker.new
+      outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
       board = Board.new(outcome_checker:)
-      allow(outcome_checker).to receive(:draw?).and_return(false)
 
       expect(board.has_draw?).to eq(false)
     end
@@ -146,17 +158,15 @@ describe 'Board' do
 
   context '#has_win?' do
     it 'returns true when the outcome checker finds a win' do
-      outcome_checker = TestOutcomeChecker.new
+      outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: true)
       board = Board.new(outcome_checker:)
-      allow(outcome_checker).to receive(:win?).and_return(true)
 
       expect(board.has_win?).to eq(true)
     end
 
     it 'returns false when the outcome checker does not find a win' do
-      outcome_checker = TestOutcomeChecker.new
+      outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
       board = Board.new(outcome_checker:)
-      allow(outcome_checker).to receive(:win?).and_return(false)
 
       expect(board.has_win?).to eq(false)
     end
