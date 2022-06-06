@@ -61,11 +61,11 @@ describe 'Game' do
       game = Game.new(console:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('9')
-      board.values = [ 
-                      'X', '0',  3, 
-                       4,  'X', 'O', 
-                       7,   8,   9 
-                    ]
+      board.values = [
+        'X', '0', 3,
+        4, 'X', 'O',
+        7, 8, 9
+      ]
 
       game.run
 
@@ -90,11 +90,11 @@ describe 'Game' do
       game = Game.new(console:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('7')
-      board.values = [ 
-                      'X', '0', '0', 
-                      'O', 'O', 'X', 
-                       7,  'X', 'O' 
-                    ]
+      board.values = [
+        'X', '0', '0',
+        'O', 'O', 'X',
+        7, 'X', 'O'
+      ]
 
       game.run
 

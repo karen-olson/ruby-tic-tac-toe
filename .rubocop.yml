@@ -11,6 +11,7 @@ Naming/PredicateName:
 Metrics/BlockLength:
   Exclude:
   - spec/game_spec.rb
+  - spec/game_looper_spec.rb
   - spec/prompt_spec.rb
   - spec/board_spec.rb
   - spec/outcome_checker_spec.rb

@@ -1,8 +1,8 @@
 require 'pry'
 
 class Board
-  attr_accessor :values, :values_grid
-  attr_reader :outcome_checker, :dimension
+  attr_accessor :values
+  attr_reader :outcome_checker
 
   def initialize(outcome_checker:)
     @outcome_checker = outcome_checker
@@ -13,7 +13,7 @@ class Board
     index = (row * dimension) + column
     values[index]
   end
-  
+
   def mark_space(token, space)
     values[space - 1] = token
   end
@@ -51,8 +51,8 @@ class Board
 
   private
 
-  def dimension 
-    dimension = Math.sqrt(values.length).to_i
+  def dimension
+    Math.sqrt(values.length).to_i
   end
 
   def values_grid
