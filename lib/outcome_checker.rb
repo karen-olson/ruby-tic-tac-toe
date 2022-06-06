@@ -1,6 +1,6 @@
 class OutcomeChecker
   def win?(board)
-    winning_combo?(board.rows) || winning_combo?(board.columns) || winning_combo?(board.diagonals)
+    winning_combo?(board.lines)
   end
 
   def draw?(board)

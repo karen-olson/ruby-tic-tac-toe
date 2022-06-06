@@ -1,13 +1,11 @@
 require 'outcome_checker'
 require 'pry'
 
-class TestBoard
-  attr_accessor :test_rows, :test_columns, :test_diagonals, :test_full
+class TestBoardForOutcomeChecker
+  attr_accessor :test_lines, :test_full
 
-  def initialize(test_rows: [], test_columns: [], test_diagonals: [], test_full: false)
-    @test_rows = test_rows
-    @test_columns = test_columns
-    @test_diagonals = test_diagonals
+  def initialize(test_lines:, test_full:)
+    @test_lines = test_lines
     @test_full = test_full
   end
 
@@ -16,164 +14,119 @@ class TestBoard
     values[index]
   end
 
-  def rows
-    test_rows
-  end
+  def mark_space(token, space); end
 
-  def columns
-    test_columns
-  end
-
-  def diagonals
-    test_diagonals
+  def lines
+    test_lines
   end
 
   def full?
     test_full
   end
+
+  def available?; end
 end
 
-def rows_with_one_win
-  [
-    %w[X X X],
-    %w[O X O],
-    ['O', 8, 'O']
-  ]
+def test_lines_win_with_full_board
+  rows = [ ['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 'X', 'O'] ]
+  columns = rows.transpose
+  diagonals = [ ['X', 'X', 'O'], ['X', 'X', 'X']]
+
+  rows + columns + diagonals
 end
 
-def rows_with_no_wins
-  [
-    %w[O X O],
-    %w[X X O],
-    ['X', 2, 'O']
-  ]
+def test_lines_win_with_open_spaces
+  rows = [ ['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 8, 9]]
+  columns = rows.transpose
+  diagonals = [['X', 'X', 9], ['X', 'X', 'X']]
+
+  rows + columns + diagonals
 end
 
-def columns_with_one_win
-  [
-    ['O', 'X', 'X'],
-    ['X', 'X', 2],
-    ['O', 'O', 'O']
-  ]
+def test_lines_no_win_with_open_spaces
+  rows = [['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 8, 9]]
+  columns = rows.transpose
+  diagonals = [['X', 'O', 9], ['X', 'O', 'X']]
+
+  rows + columns + diagonals
 end
 
-def columns_with_no_wins
-  [
-    %w[X O O],
-    [2,  'X', 8],
-    %w[X O X]
-  ]
-end
+def test_lines_draw
+  rows = [['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 'X', 'O']]
+  columns = rows.transpose
+  diagonals = [['X', 'O', 'O'], ['X', 'O', 'X']]
 
-def diagonals_with_one_win
-  [
-    %w[X X X],
-    %w[X X O]
-  ]
-end
-
-def diagonals_with_no_wins
-  [
-    %w[X O X],
-    %w[X X O]
-  ]
-end
-
-def full_rows_with_no_wins
-  [
-    %w[X O X],
-    %w[O X X],
-    %w[O X O]
-  ]
-end
-
-def full_columns_with_no_wins
-  [
-    %w[X O O],
-    %w[O X X],
-    %w[X X O]
-  ]
-end
-
-def full_diagonals_with_no_wins
-  [
-    %w[X X O],
-    %w[O X X]
-  ]
+  rows + columns + diagonals
 end
 
 describe 'Outcome Checker' do
-  context '#win?' do
-    it 'returns true with 1 winning row' do
-      board = TestBoard.new(test_rows: rows_with_one_win, test_columns: columns_with_no_wins,
-                            test_diagonals: diagonals_with_no_wins, test_full: false)
-      outcome_checker = OutcomeChecker.new
+  describe '#win?' do
+    context 'with 1 winning line and a full board' do
+      it 'returns true' do
+        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_full_board, test_full: true)
+        outcome_checker = OutcomeChecker.new
 
-      expect(outcome_checker.win?(board)).to eq(true)
+        expect(outcome_checker.win?(board)).to eq(true)
+      end
     end
 
-    it 'returns true with 1 winning column' do
-      board = TestBoard.new(test_rows: rows_with_no_wins, test_columns: columns_with_one_win,
-                            test_diagonals: diagonals_with_no_wins, test_full: false)
+    context 'with 1 winning line and open spaces on the board' do
+      it 'returns true' do
+        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_open_spaces, test_full: false)
+        outcome_checker = OutcomeChecker.new
 
-      outcome_checker = OutcomeChecker.new
-
-      expect(outcome_checker.win?(board)).to eq(true)
+        expect(outcome_checker.win?(board)).to eq(true)
+      end
     end
 
-    it 'returns true with 1 winning diagonal' do
-      board = TestBoard.new(test_rows: rows_with_no_wins, test_columns: columns_with_no_wins,
-                            test_diagonals: diagonals_with_one_win, test_full: false)
+    context 'with no winning lines and open spaces on the board' do
+      it 'returns false' do
+        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_no_win_with_open_spaces, test_full: false)
+        outcome_checker = OutcomeChecker.new
 
-      outcome_checker = OutcomeChecker.new
-
-      expect(outcome_checker.win?(board)).to eq(true)
+        expect(outcome_checker.win?(board)).to eq(false)
+      end
     end
 
-    it 'returns false with 0 winning rows, columns, or diagonals and an empty space' do
-      board = TestBoard.new(test_rows: rows_with_no_wins, test_columns: columns_with_no_wins,
-                            test_diagonals: diagonals_with_no_wins, test_full: false)
+    context 'with a draw' do
+      it 'returns false' do
+        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_draw, test_full: true)
+        outcome_checker = OutcomeChecker.new
 
-      outcome_checker = OutcomeChecker.new
-
-      expect(outcome_checker.win?(board)).to eq(false)
-    end
-
-    it 'returns false with 0 winning rows, columns, or diagonals and no empty spaces' do
-      board = TestBoard.new(test_rows: full_rows_with_no_wins, test_columns: full_columns_with_no_wins,
-                            test_diagonals: full_diagonals_with_no_wins, test_full: true)
-
-      outcome_checker = OutcomeChecker.new
-
-      expect(outcome_checker.win?(board)).to eq(false)
+        expect(outcome_checker.win?(board)).to eq(false)
+      end
     end
   end
 
-  context '#draw?' do
-    it 'returns true when the board is full and #win? is false' do
-      board = TestBoard.new(test_rows: full_rows_with_no_wins, test_columns: full_columns_with_no_wins,
-                            test_diagonals: full_diagonals_with_no_wins, test_full: true)
+  describe '#draw?' do
+    context 'when the board is full and #win? is false' do
+      it 'returns true' do
+        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_draw, test_full: true)
 
-      outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new
 
-      expect(outcome_checker.draw?(board)).to eq(true)
+        expect(outcome_checker.draw?(board)).to eq(true)
+      end
     end
 
-    it 'returns false when the board is not full' do
-      board = TestBoard.new(test_rows: rows_with_one_win, test_columns: columns_with_no_wins,
-                            test_diagonals: diagonals_with_no_wins, test_full: false)
+    context 'when the board is not full and #win? is false' do
+      it 'returns false' do
+        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_no_win_with_open_spaces, test_full: false)
 
-      outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new
 
-      expect(outcome_checker.draw?(board)).to eq(false)
+        expect(outcome_checker.draw?(board)).to eq(false)
+      end
     end
 
-    it 'returns false when the board is full and #win? is true' do
-      board = TestBoard.new(test_rows: rows_with_one_win, test_full: true)
+    context 'when the board is full and #win? is true' do
+      it 'returns false' do
+        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_full_board, test_full: true)
 
-      outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new
 
-      expect(outcome_checker.draw?(board)).to eq(false)
+        expect(outcome_checker.draw?(board)).to eq(false)
+      end
     end
   end
 end
