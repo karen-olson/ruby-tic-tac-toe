@@ -1,20 +1,19 @@
 require 'pry'
 
 class Board
-  attr_accessor :values
+  attr_accessor :values, :values_grid
   attr_reader :outcome_checker, :dimension
 
   def initialize(outcome_checker:)
     @outcome_checker = outcome_checker
     @values = (1..9).to_a
-    @dimension = Math.sqrt(values.length).to_i
   end
 
   def get_space(row, column)
     index = (row * dimension) + column
     values[index]
   end
-
+  
   def mark_space(token, space)
     values[space - 1] = token
   end
@@ -39,11 +38,11 @@ class Board
   end
 
   def rows
-    row_numbers.map { |row_number| row(row_number) }
+    values_grid
   end
 
   def columns
-    column_numbers.map { |column_number| column(column_number) }
+    values_grid.transpose
   end
 
   def diagonals
@@ -52,26 +51,14 @@ class Board
 
   private
 
-  def row_numbers
-    max_row_number = dimension - 1
-    (0..max_row_number).to_a
+  def dimension 
+    dimension = Math.sqrt(values.length).to_i
   end
 
-  def column_numbers
-    max_column_number = dimension - 1
-    (0..max_column_number).to_a
-  end
-
-  def row(row_number)
-    column_numbers.map do |column_number|
-      get_space(row_number, column_number)
-    end
-  end
-
-  def column(column_number)
-    row_numbers.map do |row_number|
-      get_space(row_number, column_number)
-    end
+  def values_grid
+    grid = []
+    values.each_slice(dimension) { |row| grid << row }
+    grid
   end
 
   def left_diagonal
