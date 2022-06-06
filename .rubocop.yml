@@ -6,6 +6,8 @@ Style/AccessorMethodName:
   Enabled: false
 Style/WordArray:
   Enabled: false
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
 Lint/EmptyClass:
   Enabled: false
 Naming/PredicateName:
