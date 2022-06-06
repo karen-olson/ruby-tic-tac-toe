@@ -1,8 +1,6 @@
 require 'pry'
 
 class GameLooper
-  # private
-
   def initialize(console:, display:, prompt:, board:, players:)
     @console = console
     @display = display
@@ -21,8 +19,7 @@ class GameLooper
   attr_reader :console, :display, :prompt, :board, :players
 
   def game_is_over
-    # binding.pry
-    board.full?
+    board.has_draw? || board.has_win?
   end
 
   def take_turns(players)
