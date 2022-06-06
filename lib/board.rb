@@ -63,11 +63,13 @@ class Board
 
   def left_diagonal
     left_diagonal = []
-    current_row_or_column = 0
+    current_row = 0
+    current_column = 0
 
     dimension.times do
-      left_diagonal << get_space(current_row_or_column, current_row_or_column)
-      current_row_or_column += 1
+      left_diagonal << get_space(current_row, current_column)
+      current_row += 1
+      current_column += 1
     end
 
     left_diagonal
