@@ -8,11 +8,11 @@ class TestOutcomeChecker
     @test_draw = test_draw
   end
 
-  def win?(board)
+  def win?(_board)
     test_win
   end
 
-  def draw?(board)
+  def draw?(_board)
     test_draw
   end
 end

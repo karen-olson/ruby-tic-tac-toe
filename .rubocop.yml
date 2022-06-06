@@ -4,6 +4,8 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/AccessorMethodName:
   Enabled: false
+Style/WordArray:
+  Enabled: false
 Lint/EmptyClass:
   Enabled: false
 Naming/PredicateName:
