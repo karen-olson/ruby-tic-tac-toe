@@ -84,59 +84,47 @@ describe 'Board' do
     end
   end
 
-  context '#rows' do
-    it 'returns the correct row values' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
-      board.values = [
-        'O', 2, 'X',
-        4, 'X', 'O',
-        'O', 'X', 9
-      ]
-      expected_rows = [
-        ['O', 2, 'X'],
-        [4, 'X', 'O'],
-        ['O', 'X', 9]
-      ]
+  describe '#lines' do
+    context 'given an empty board' do
+      it 'returns the correct values' do
+        outcome_checker = TestOutcomeChecker.new(test_draw: true, test_win: false)
+        board = Board.new(outcome_checker:)
 
-      expect(board.rows).to eq(expected_rows)
+        board.values = [
+          1, 2, 3,
+          4, 5, 6,
+          7, 8, 9
+        ]
+
+        expected_lines = [
+          [1, 2, 3], [4, 5, 6], [7, 8, 9],
+          [1, 4, 7], [2, 5, 8], [3, 6, 9],
+          [1, 5, 9], [3, 5, 7]
+        ]
+
+        expect(board.lines).to eq(expected_lines)
+      end
     end
-  end
 
-  context '#columns' do
-    it 'returns the correct column values' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
-      board.values = [
-        'O', 2, 'X',
-        4, 'X', 'O',
-        'O', 'X', 9
-      ]
-      expected_columns = [
-        ['O', 4, 'O'],
-        [2, 'X', 'X'],
-        ['X', 'O', 9]
-      ]
+    context 'given a full board' do
+      it 'returns the correct values' do
+        outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
+        board = Board.new(outcome_checker:)
 
-      expect(board.columns).to eq(expected_columns)
-    end
-  end
+        board.values = [
+          'O', 'O', 'X',
+          'X', 'X', 'O',
+          'O', 'X', 'O'
+        ]
 
-  context '#diagonals' do
-    it 'returns the correct diagonal values' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
-      board.values = [
-        'O', 2, 'X',
-        4, 'X', 'O',
-        'O', 'X', 9
-      ]
-      expected_diagonals = [
-        ['O', 'X', 9],
-        %w[X X O]
-      ]
+        expected_lines = [
+          ['O', 'O', 'X'], ['X', 'X', 'O'], ['O', 'X', 'O'],
+          ['O', 'X', 'O'], ['O', 'X', 'X'], ['X', 'O', 'O'],
+          ['O', 'X', 'O'], ['X', 'X', 'O']
+        ]
 
-      expect(board.diagonals).to eq(expected_diagonals)
+        expect(board.lines).to eq(expected_lines)
+      end
     end
   end
 
