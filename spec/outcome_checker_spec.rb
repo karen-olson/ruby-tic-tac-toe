@@ -2,42 +2,117 @@ require 'outcome_checker'
 require 'pry'
 
 class TestBoard
+  attr_accessor :test_rows, :test_columns, :test_diagonals, :test_full
+
+  def initialize(test_rows: [], test_columns: [], test_diagonals: [], test_full: false)
+    @test_rows = test_rows
+    @test_columns = test_columns
+    @test_diagonals = test_diagonals
+    @test_full = test_full
+  end
+
   def get_space(row, column)
     index = (row * 3) + column
     values[index]
   end
+
+  def rows
+    test_rows
+  end
+
+  def columns
+    test_columns
+  end
+
+  def diagonals
+    test_diagonals
+  end
+
+  def full?
+    test_full
+  end
+end
+
+def rows_with_one_win
+  [
+    %w[X X X],
+    %w[O X O],
+    ['O', 8, 'O']
+  ]
+end
+
+def rows_with_no_wins
+  [
+    %w[O X O],
+    %w[X X O],
+    ['X', 2, 'O']
+  ]
+end 
+
+def columns_with_one_win
+  [
+    ['O', 'X', 'X'],
+    ['X', 'X',  2 ],
+    ['O', 'O', 'O']
+  ]
+end
+
+def columns_with_no_wins
+  [
+    %w[X O O],
+    [2,  'X', 8],
+    %w[X O X]
+  ]
+end
+
+def diagonals_with_one_win
+  [
+    %w[X X X],
+    %w[X X O]
+  ]
+end
+
+def diagonals_with_no_wins
+  [
+    %w[X O X],
+    %w[X X O]
+  ]
+end
+
+def full_rows_with_no_wins
+  [
+    %w[X O X],
+    %w[O X X],
+    %w[O X O]
+  ]
+end
+
+def full_columns_with_no_wins
+  [
+    %w[X O O],
+    %w[O X X],
+    %w[X X O]
+  ]
+end
+
+def full_diagonals_with_no_wins 
+  [
+    %w[X X O],
+    %w[O X X]
+  ]
 end
 
 describe 'Outcome Checker' do
   context '#win?' do
     it 'returns true with 1 winning row' do
-      board = TestBoard.new
-      rows_with_one_winning_row = [
-        %w[X X X],
-        %w[O X O],
-        ['O', 8, 'O']
-      ]
-      allow(board).to receive(:rows).and_return(rows_with_one_winning_row)
-
+      board = TestBoard.new(test_rows: rows_with_one_win, test_columns: columns_with_no_wins, test_diagonals: diagonals_with_no_wins, test_full: false)
       outcome_checker = OutcomeChecker.new
 
       expect(outcome_checker.win?(board)).to eq(true)
     end
 
     it 'returns true with 1 winning column' do
-      board = TestBoard.new
-      rows_with_no_winning_rows = [
-        %w[O X O],
-        %w[X X O],
-        ['X', 2, 'O']
-      ]
-      columns_with_one_winning_column = [
-        %w[O X X],
-        ['X', 'X', 2],
-        %w[O O O]
-      ]
-      allow(board).to receive(:rows).and_return(rows_with_no_winning_rows)
-      allow(board).to receive(:columns).and_return(columns_with_one_winning_column)
+      board = TestBoard.new(test_rows: rows_with_no_wins, test_columns: columns_with_one_win, test_diagonals: diagonals_with_no_wins, test_full: false)
 
       outcome_checker = OutcomeChecker.new
 
@@ -45,24 +120,7 @@ describe 'Outcome Checker' do
     end
 
     it 'returns true with 1 winning diagonal' do
-      board = TestBoard.new
-      rows_with_no_winning_rows = [
-        ['X', 2, 'X'],
-        %w[O X O],
-        ['O', 8, 'X']
-      ]
-      columns_with_no_winning_columns = [
-        %w[X O O],
-        [2,  'X', 8],
-        %w[X O X]
-      ]
-      diagonals_with_one_winning_diagonal = [
-        %w[X X X],
-        %w[X X O]
-      ]
-      allow(board).to receive(:rows).and_return(rows_with_no_winning_rows)
-      allow(board).to receive(:columns).and_return(columns_with_no_winning_columns)
-      allow(board).to receive(:diagonals).and_return(diagonals_with_one_winning_diagonal)
+      board = TestBoard.new(test_rows: rows_with_no_wins, test_columns: columns_with_no_wins, test_diagonals: diagonals_with_one_win, test_full: false)
 
       outcome_checker = OutcomeChecker.new
 
@@ -70,24 +128,7 @@ describe 'Outcome Checker' do
     end
 
     it 'returns false with 0 winning rows, columns, or diagonals and an empty space' do
-      board = TestBoard.new
-      rows_with_no_winning_rows = [
-        %w[X O X],
-        %w[O X X],
-        ['O', 8, 'O']
-      ]
-      columns_with_no_winning_columns = [
-        %w[X O O],
-        ['O', 'X', 8],
-        %w[X X O]
-      ]
-      diagonals_with_no_winning_diagonals = [
-        %w[X X O],
-        %w[O X X]
-      ]
-      allow(board).to receive(:rows).and_return(rows_with_no_winning_rows)
-      allow(board).to receive(:columns).and_return(columns_with_no_winning_columns)
-      allow(board).to receive(:diagonals).and_return(diagonals_with_no_winning_diagonals)
+      board = TestBoard.new(test_rows: rows_with_no_wins, test_columns: columns_with_no_wins, test_diagonals: diagonals_with_no_wins, test_full: false)
 
       outcome_checker = OutcomeChecker.new
 
@@ -95,24 +136,7 @@ describe 'Outcome Checker' do
     end
 
     it 'returns false with 0 winning rows, columns, or diagonals and no empty spaces' do
-      board = TestBoard.new
-      rows_with_no_winning_rows = [
-        %w[X O X],
-        %w[O X X],
-        %w[O X O]
-      ]
-      columns_with_no_winning_columns = [
-        %w[X O O],
-        %w[O X X],
-        %w[X X O]
-      ]
-      diagonals_with_no_winning_diagonals = [
-        %w[X X O],
-        %w[O X X]
-      ]
-      allow(board).to receive(:rows).and_return(rows_with_no_winning_rows)
-      allow(board).to receive(:columns).and_return(columns_with_no_winning_columns)
-      allow(board).to receive(:diagonals).and_return(diagonals_with_no_winning_diagonals)
+      board = TestBoard.new(test_rows: full_rows_with_no_wins, test_columns: full_columns_with_no_wins, test_diagonals: full_diagonals_with_no_wins, test_full: true)
 
       outcome_checker = OutcomeChecker.new
 
@@ -122,25 +146,7 @@ describe 'Outcome Checker' do
 
   context '#draw?' do
     it 'returns true when the board is full and #win? is false' do
-      board = TestBoard.new
-      rows_with_no_winning_rows = [
-        %w[X O X],
-        %w[O X X],
-        %w[O X O]
-      ]
-      columns_with_no_winning_columns = [
-        %w[X O O],
-        %w[O X X],
-        %w[X X O]
-      ]
-      diagonals_with_no_winning_diagonals = [
-        %w[X X O],
-        %w[O X X]
-      ]
-      allow(board).to receive(:rows).and_return(rows_with_no_winning_rows)
-      allow(board).to receive(:columns).and_return(columns_with_no_winning_columns)
-      allow(board).to receive(:diagonals).and_return(diagonals_with_no_winning_diagonals)
-      allow(board).to receive(:full?).and_return(true)
+      board = TestBoard.new(test_rows: full_rows_with_no_wins, test_columns: full_columns_with_no_wins, test_diagonals: full_diagonals_with_no_wins, test_full: true)
 
       outcome_checker = OutcomeChecker.new
 
@@ -148,8 +154,7 @@ describe 'Outcome Checker' do
     end
 
     it 'returns false when the board is not full' do
-      board = TestBoard.new
-      allow(board).to receive(:full?).and_return(false)
+      board = TestBoard.new(test_rows: rows_with_one_win, test_columns: columns_with_no_wins, test_diagonals: diagonals_with_no_wins, test_full: false)
 
       outcome_checker = OutcomeChecker.new
 
@@ -157,14 +162,7 @@ describe 'Outcome Checker' do
     end
 
     it 'returns false when the board is full and #win? is true' do
-      board = TestBoard.new
-      rows_with_one_winning_row = [
-        %w[X X X],
-        %w[O X O],
-        %w[O O O]
-      ]
-      allow(board).to receive(:full?).and_return(true)
-      allow(board).to receive(:rows).and_return(rows_with_one_winning_row)
+      board = TestBoard.new(test_rows: rows_with_one_win, test_full: true)
 
       outcome_checker = OutcomeChecker.new
 
