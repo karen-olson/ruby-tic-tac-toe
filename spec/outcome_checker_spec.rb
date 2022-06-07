@@ -22,10 +22,6 @@ class TestBoardForOutcomeChecker
   def full?
     test_full
   end
-
-  def has_win?; end
-
-  def has_draw?; end
 end
 
 def test_lines_win_with_full_board

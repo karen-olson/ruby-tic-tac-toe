@@ -1,22 +1,5 @@
 require 'board'
 
-class TestOutcomeChecker
-  attr_reader :test_win, :test_draw
-
-  def initialize(test_win: false, test_draw: false)
-    @test_win = test_win
-    @test_draw = test_draw
-  end
-
-  def win?(_board)
-    test_win
-  end
-
-  def draw?(_board)
-    test_draw
-  end
-end
-
 describe 'Board' do
   context 'given a row and column number (from 0 - 2)' do
     it '#get_space returns the correct value for the given coordinates' do
