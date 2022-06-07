@@ -1,9 +1,8 @@
 class OutcomeChecker
-
   def initialize(board:)
     @board = board
   end
-  
+
   def win?
     winning_combo?(board.lines)
   end

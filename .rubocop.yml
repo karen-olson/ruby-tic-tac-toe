@@ -19,6 +19,8 @@ Metrics/BlockLength:
   - spec/prompt_spec.rb
   - spec/board_spec.rb
   - spec/outcome_checker_spec.rb
+Metrics/ParameterLists:
+  Enabled: false
 AllCops:
   NewCops: enable
   Exclude:

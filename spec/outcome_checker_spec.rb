@@ -24,7 +24,7 @@ class TestBoardForOutcomeChecker
   end
 
   def has_win?; end
-  
+
   def has_draw?; end
 end
 
