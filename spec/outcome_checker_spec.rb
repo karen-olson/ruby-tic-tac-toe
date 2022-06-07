@@ -29,7 +29,11 @@ class TestBoardForOutcomeChecker
 end
 
 def test_lines_win_with_full_board
-  rows = [ ['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 'X', 'O'] ]
+  rows = [
+    ['X', 'O', 'X'],
+    ['O', 'X', 'O'],
+    ['X', 'X', 'O']
+  ]
   columns = rows.transpose
   diagonals = [ ['X', 'X', 'O'], ['X', 'X', 'X']]
 
@@ -37,23 +41,35 @@ def test_lines_win_with_full_board
 end
 
 def test_lines_win_with_open_spaces
-  rows = [ ['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 8, 9]]
+  rows = [
+    [ 1,  2, 'X'],
+    [ 4, 'X', 6 ],
+    ['X', 8,  9 ]
+  ]
   columns = rows.transpose
-  diagonals = [['X', 'X', 9], ['X', 'X', 'X']]
+  diagonals = [ [1, 'X', 9], ['X', 'X', 'X'] ]
 
   rows + columns + diagonals
 end
 
 def test_lines_no_win_with_open_spaces
-  rows = [['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 8, 9]]
+  rows = [
+    [ 1,  2, 'X'],
+    [ 4, 'O', 6 ],
+    ['X', 8,  9 ]
+  ]
   columns = rows.transpose
-  diagonals = [['X', 'O', 9], ['X', 'O', 'X']]
+  diagonals = [ [1, 'O', 9], ['X', 'O', 'X'] ]
 
   rows + columns + diagonals
 end
 
 def test_lines_draw
-  rows = [['X', 'O', 'X'], ['O', 'O', 'X'], ['X', 'X', 'O']]
+  rows = [
+    ['X', 'O', 'X'],
+    ['O', 'O', 'X'],
+    ['X', 'X', 'O']
+  ]
   columns = rows.transpose
   diagonals = [['X', 'O', 'O'], ['X', 'O', 'X']]
 
