@@ -119,36 +119,4 @@ describe 'Board' do
       end
     end
   end
-
-  # context '#has_draw?' do
-  #   it 'returns true when the outcome checker finds a draw' do
-  #     outcome_checker = TestOutcomeChecker.new(test_draw: true, test_win: false)
-  #     board = Board.new(outcome_checker:)
-
-  #     expect(board.has_draw?).to eq(true)
-  #   end
-
-  #   it 'returns false when the outcome checker does not find a draw' do
-  #     outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
-  #     board = Board.new(outcome_checker:)
-
-  #     expect(board.has_draw?).to eq(false)
-  #   end
-  # end
-
-  # context '#has_win?' do
-  #   it 'returns true when the outcome checker finds a win' do
-  #     outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: true)
-  #     board = Board.new(outcome_checker:)
-
-  #     expect(board.has_win?).to eq(true)
-  #   end
-
-  #   it 'returns false when the outcome checker does not find a win' do
-  #     outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
-  #     board = Board.new(outcome_checker:)
-
-  #     expect(board.has_win?).to eq(false)
-  #   end
-  # end
 end
