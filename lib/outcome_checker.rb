@@ -1,13 +1,20 @@
 class OutcomeChecker
-  def win?(board)
+
+  def initialize(board:)
+    @board = board
+  end
+  
+  def win?
     winning_combo?(board.lines)
   end
 
-  def draw?(board)
-    board.full? && !win?(board)
+  def draw?
+    board.full? && !win?
   end
 
   private
+
+  attr_reader :board
 
   def winning_combo?(lines)
     line_statuses = lines.map { |line| all_equal?(line) }

@@ -20,8 +20,7 @@ end
 describe 'Board' do
   context 'given a row and column number (from 0 - 2)' do
     it '#get_space returns the correct value for the given coordinates' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
       board.values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
       expect(board.get_space(0, 0)).to eq(1)
@@ -31,8 +30,7 @@ describe 'Board' do
 
   context '#mark_space' do
     it 'places an X in the selected space on the board' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
       token = 'X'
       space = 1
 
@@ -46,8 +44,7 @@ describe 'Board' do
 
   context '#full?' do
     it 'returns true when the board is full' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
 
       board.values = %w[X O O X X O X X O]
 
@@ -55,8 +52,7 @@ describe 'Board' do
     end
 
     it 'returns false when the board is not full' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
 
       board.values = ['X', 2, 'O', 'X', 'X', 'O', 'X', 'X', 'O']
 
@@ -66,8 +62,7 @@ describe 'Board' do
 
   context '#available?' do
     it 'returns true when the space is available' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
 
       board.values = ['X', 2, 3, 'O', 5, 6, 'X', 8, 9]
 
@@ -75,8 +70,7 @@ describe 'Board' do
     end
 
     it 'returns false when the space is not available' do
-      outcome_checker = TestOutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
 
       board.values = ['X', 2, 3, 'O', 5, 6, 'X', 8, 9]
 
@@ -87,8 +81,7 @@ describe 'Board' do
   describe '#lines' do
     context 'given an empty board' do
       it 'returns the correct values' do
-        outcome_checker = TestOutcomeChecker.new(test_draw: true, test_win: false)
-        board = Board.new(outcome_checker:)
+        board = Board.new
 
         board.values = [
           1, 2, 3,
@@ -108,8 +101,7 @@ describe 'Board' do
 
     context 'given a full board' do
       it 'returns the correct values' do
-        outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
-        board = Board.new(outcome_checker:)
+        board = Board.new
 
         board.values = [
           'O', 'O', 'X',
@@ -128,35 +120,35 @@ describe 'Board' do
     end
   end
 
-  context '#has_draw?' do
-    it 'returns true when the outcome checker finds a draw' do
-      outcome_checker = TestOutcomeChecker.new(test_draw: true, test_win: false)
-      board = Board.new(outcome_checker:)
+  # context '#has_draw?' do
+  #   it 'returns true when the outcome checker finds a draw' do
+  #     outcome_checker = TestOutcomeChecker.new(test_draw: true, test_win: false)
+  #     board = Board.new(outcome_checker:)
 
-      expect(board.has_draw?).to eq(true)
-    end
+  #     expect(board.has_draw?).to eq(true)
+  #   end
 
-    it 'returns false when the outcome checker does not find a draw' do
-      outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
-      board = Board.new(outcome_checker:)
+  #   it 'returns false when the outcome checker does not find a draw' do
+  #     outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
+  #     board = Board.new(outcome_checker:)
 
-      expect(board.has_draw?).to eq(false)
-    end
-  end
+  #     expect(board.has_draw?).to eq(false)
+  #   end
+  # end
 
-  context '#has_win?' do
-    it 'returns true when the outcome checker finds a win' do
-      outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: true)
-      board = Board.new(outcome_checker:)
+  # context '#has_win?' do
+  #   it 'returns true when the outcome checker finds a win' do
+  #     outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: true)
+  #     board = Board.new(outcome_checker:)
 
-      expect(board.has_win?).to eq(true)
-    end
+  #     expect(board.has_win?).to eq(true)
+  #   end
 
-    it 'returns false when the outcome checker does not find a win' do
-      outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
-      board = Board.new(outcome_checker:)
+  #   it 'returns false when the outcome checker does not find a win' do
+  #     outcome_checker = TestOutcomeChecker.new(test_draw: false, test_win: false)
+  #     board = Board.new(outcome_checker:)
 
-      expect(board.has_win?).to eq(false)
-    end
-  end
+  #     expect(board.has_win?).to eq(false)
+  #   end
+  # end
 end

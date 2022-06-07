@@ -2,10 +2,8 @@ require 'pry'
 
 class Board
   attr_accessor :values
-  attr_reader :outcome_checker
 
-  def initialize(outcome_checker:)
-    @outcome_checker = outcome_checker
+  def initialize
     @values = (1..9).to_a
   end
 
@@ -27,14 +25,6 @@ class Board
   def available?(input)
     space = values[input - 1]
     space.is_a?(Integer)
-  end
-
-  def has_win?
-    outcome_checker.win?(self)
-  end
-
-  def has_draw?
-    outcome_checker.draw?(self)
   end
 
   def lines

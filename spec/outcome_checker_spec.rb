@@ -9,12 +9,11 @@ class TestBoardForOutcomeChecker
     @test_full = test_full
   end
 
-  def get_space(row, column)
-    index = (row * 3) + column
-    values[index]
-  end
+  def get_space(_row, _column); end
 
   def mark_space(token, space); end
+
+  def available?; end
 
   def lines
     test_lines
@@ -24,7 +23,9 @@ class TestBoardForOutcomeChecker
     test_full
   end
 
-  def available?; end
+  def has_win?; end
+  
+  def has_draw?; end
 end
 
 def test_lines_win_with_full_board
@@ -64,36 +65,36 @@ describe 'Outcome Checker' do
     context 'with 1 winning line and a full board' do
       it 'returns true' do
         board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_full_board, test_full: true)
-        outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new(board:)
 
-        expect(outcome_checker.win?(board)).to eq(true)
+        expect(outcome_checker.win?).to eq(true)
       end
     end
 
     context 'with 1 winning line and open spaces on the board' do
       it 'returns true' do
         board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_open_spaces, test_full: false)
-        outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new(board:)
 
-        expect(outcome_checker.win?(board)).to eq(true)
+        expect(outcome_checker.win?).to eq(true)
       end
     end
 
     context 'with no winning lines and open spaces on the board' do
       it 'returns false' do
         board = TestBoardForOutcomeChecker.new(test_lines: test_lines_no_win_with_open_spaces, test_full: false)
-        outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new(board:)
 
-        expect(outcome_checker.win?(board)).to eq(false)
+        expect(outcome_checker.win?).to eq(false)
       end
     end
 
     context 'with a draw' do
       it 'returns false' do
         board = TestBoardForOutcomeChecker.new(test_lines: test_lines_draw, test_full: true)
-        outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new(board:)
 
-        expect(outcome_checker.win?(board)).to eq(false)
+        expect(outcome_checker.win?).to eq(false)
       end
     end
   end
@@ -103,9 +104,9 @@ describe 'Outcome Checker' do
       it 'returns true' do
         board = TestBoardForOutcomeChecker.new(test_lines: test_lines_draw, test_full: true)
 
-        outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new(board:)
 
-        expect(outcome_checker.draw?(board)).to eq(true)
+        expect(outcome_checker.draw?).to eq(true)
       end
     end
 
@@ -113,9 +114,9 @@ describe 'Outcome Checker' do
       it 'returns false' do
         board = TestBoardForOutcomeChecker.new(test_lines: test_lines_no_win_with_open_spaces, test_full: false)
 
-        outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new(board:)
 
-        expect(outcome_checker.draw?(board)).to eq(false)
+        expect(outcome_checker.draw?).to eq(false)
       end
     end
 
@@ -123,9 +124,9 @@ describe 'Outcome Checker' do
       it 'returns false' do
         board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_full_board, test_full: true)
 
-        outcome_checker = OutcomeChecker.new
+        outcome_checker = OutcomeChecker.new(board:)
 
-        expect(outcome_checker.draw?(board)).to eq(false)
+        expect(outcome_checker.draw?).to eq(false)
       end
     end
   end

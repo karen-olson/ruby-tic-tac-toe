@@ -11,15 +11,15 @@ require_relative '../lib/outcome_checker'
 require_relative '../lib/player'
 
 console = Console.new(stdout: $stdout, stdin: $stdin)
-outcome_checker = OutcomeChecker.new
+board = Board.new
+outcome_checker = OutcomeChecker.new(board:)
 display = Display.new
-board = Board.new(outcome_checker:)
 number_validator = NumberValidator.new
 prompt = Prompt.new(console:, number_validator:,
                     board:)
 player_one = Player.new(marker: 'X')
 player_two = Player.new(marker: 'O')
 players = [player_one, player_two]
-game_looper = GameLooper.new(console:, display:, prompt:, board:, players:)
+game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
 game = Game.new(console:, game_looper:)
 game.run

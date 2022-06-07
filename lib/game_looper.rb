@@ -1,12 +1,13 @@
 require 'pry'
 
 class GameLooper
-  def initialize(console:, display:, prompt:, board:, players:)
+  def initialize(console:, display:, prompt:, board:, players:, outcome_checker:)
     @console = console
     @display = display
     @prompt = prompt
     @board = board
     @players = players
+    @outcome_checker = outcome_checker
   end
 
   def loop
@@ -17,10 +18,10 @@ class GameLooper
 
   private
 
-  attr_reader :console, :display, :prompt, :board, :players
+  attr_reader :console, :display, :prompt, :board, :players, :outcome_checker
 
   def game_is_over
-    board.has_draw? || board.has_win?
+    outcome_checker.draw? || outcome_checker.win?
   end
 
   def take_turns(players)

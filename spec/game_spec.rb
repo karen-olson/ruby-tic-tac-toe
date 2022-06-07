@@ -51,13 +51,13 @@ describe 'Game' do
       $stdout = StringIO.new
 
       console = Console.new(stdin: $stdin, stdout: $stdout)
-      outcome_checker = OutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
+      outcome_checker = OutcomeChecker.new(board:)
       number_validator = NumberValidator.new
       prompt = Prompt.new(console:, number_validator:, board:)
       display = Display.new
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:)
+      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
       game = Game.new(console:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('9')
@@ -80,13 +80,13 @@ describe 'Game' do
       $stdout = StringIO.new
 
       console = Console.new(stdin: $stdin, stdout: $stdout)
-      outcome_checker = OutcomeChecker.new
-      board = Board.new(outcome_checker:)
+      board = Board.new
+      outcome_checker = OutcomeChecker.new(board:)
       number_validator = NumberValidator.new
       prompt = Prompt.new(console:, number_validator:, board:)
       display = Display.new
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:)
+      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
       game = Game.new(console:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('7')
