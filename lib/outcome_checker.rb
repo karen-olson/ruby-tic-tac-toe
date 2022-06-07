@@ -16,8 +16,7 @@ class OutcomeChecker
   attr_reader :board
 
   def winning_combo?(lines)
-    line_statuses = lines.map { |line| all_equal?(line) }
-    line_statuses.include?(true)
+    lines.any? { |line| all_equal?(line) }
   end
 
   def all_equal?(line)
