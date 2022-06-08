@@ -45,24 +45,56 @@ describe 'Game' do
       expected_output = ['Welcome to Tic Tac Toe!', 'Looping', 'Thank you for playing. Goodbye!']
       expect(console.messages).to eq(expected_output)
     end
-  end
 
-  context 'when the board is full' do
-    it 'exits the game' do
+    it 'exits the game when there is a win' do
       original_stdout = $stdout
       $stdout = StringIO.new
 
       console = Console.new(stdin: $stdin, stdout: $stdout)
       board = Board.new
+      outcome_checker = OutcomeChecker.new(board:)
       number_validator = NumberValidator.new
       prompt = Prompt.new(console:, number_validator:, board:)
       display = Display.new
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:)
+      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
       game = Game.new(console:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('9')
-      board.values = ['X', '0', '0', 'X', 'X', 'O', 'O', 'O', 9]
+      board.values = [
+        'X', '0', 3,
+        4, 'X', 'O',
+        7, 8, 9
+      ]
+
+      game.run
+
+      output = $stdout.string.split("\n")
+      expect(output).to include('Thank you for playing. Goodbye!')
+
+      $stdout = original_stdout
+    end
+
+    it 'exits the game when there is a draw' do
+      original_stdout = $stdout
+      $stdout = StringIO.new
+
+      console = Console.new(stdin: $stdin, stdout: $stdout)
+      board = Board.new
+      outcome_checker = OutcomeChecker.new(board:)
+      number_validator = NumberValidator.new
+      prompt = Prompt.new(console:, number_validator:, board:)
+      display = Display.new
+      players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
+      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
+      game = Game.new(console:, game_looper:)
+
+      allow($stdin).to receive(:gets).and_return('7')
+      board.values = [
+        'X', '0', '0',
+        'O', 'O', 'X',
+        7, 'X', 'O'
+      ]
 
       game.run
 

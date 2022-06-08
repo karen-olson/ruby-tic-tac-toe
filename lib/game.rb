@@ -10,7 +10,6 @@ class Game
 
   def run
     welcome_players
-    # configure_game
     game_looper.loop
     goodbye_players
   end
