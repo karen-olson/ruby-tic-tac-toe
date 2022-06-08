@@ -2,10 +2,10 @@ require 'outcome_checker'
 require 'pry'
 
 class TestBoardForOutcomeChecker
-  attr_accessor :test_lines, :test_full
+  attr_accessor :test_combinations, :test_full
 
-  def initialize(test_lines:, test_full:)
-    @test_lines = test_lines
+  def initialize(test_combinations:, test_full:)
+    @test_combinations = test_combinations
     @test_full = test_full
   end
 
@@ -15,8 +15,8 @@ class TestBoardForOutcomeChecker
 
   def available?; end
 
-  def lines
-    test_lines
+  def combinations
+    test_combinations
   end
 
   def full?
@@ -24,7 +24,7 @@ class TestBoardForOutcomeChecker
   end
 end
 
-def test_lines_win_with_full_board
+def test_combinations_win_with_full_board
   rows = [
     ['X', 'O', 'X'],
     ['O', 'X', 'O'],
@@ -36,7 +36,7 @@ def test_lines_win_with_full_board
   rows + columns + diagonals
 end
 
-def test_lines_win_with_open_spaces
+def test_combinations_win_with_open_spaces
   rows = [
     [ 1,  2, 'X'],
     [ 4, 'X', 6 ],
@@ -48,7 +48,7 @@ def test_lines_win_with_open_spaces
   rows + columns + diagonals
 end
 
-def test_lines_no_win_with_open_spaces
+def test_combinations_no_win_with_open_spaces
   rows = [
     [ 1,  2, 'X'],
     [ 4, 'O', 6 ],
@@ -60,7 +60,7 @@ def test_lines_no_win_with_open_spaces
   rows + columns + diagonals
 end
 
-def test_lines_draw
+def test_combinations_draw
   rows = [
     ['X', 'O', 'X'],
     ['O', 'O', 'X'],
@@ -76,7 +76,7 @@ describe 'Outcome Checker' do
   describe '#win?' do
     context 'with 1 winning line and a full board' do
       it 'returns true' do
-        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_full_board, test_full: true)
+        board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_win_with_full_board, test_full: true)
         outcome_checker = OutcomeChecker.new(board:)
 
         expect(outcome_checker.win?).to eq(true)
@@ -85,16 +85,16 @@ describe 'Outcome Checker' do
 
     context 'with 1 winning line and open spaces on the board' do
       it 'returns true' do
-        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_open_spaces, test_full: false)
+        board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_win_with_open_spaces, test_full: false)
         outcome_checker = OutcomeChecker.new(board:)
 
         expect(outcome_checker.win?).to eq(true)
       end
     end
 
-    context 'with no winning lines and open spaces on the board' do
+    context 'with no winning combinations and open spaces on the board' do
       it 'returns false' do
-        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_no_win_with_open_spaces, test_full: false)
+        board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_no_win_with_open_spaces, test_full: false)
         outcome_checker = OutcomeChecker.new(board:)
 
         expect(outcome_checker.win?).to eq(false)
@@ -103,7 +103,7 @@ describe 'Outcome Checker' do
 
     context 'with a draw' do
       it 'returns false' do
-        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_draw, test_full: true)
+        board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_draw, test_full: true)
         outcome_checker = OutcomeChecker.new(board:)
 
         expect(outcome_checker.win?).to eq(false)
@@ -114,7 +114,7 @@ describe 'Outcome Checker' do
   describe '#draw?' do
     context 'when the board is full and #win? is false' do
       it 'returns true' do
-        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_draw, test_full: true)
+        board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_draw, test_full: true)
 
         outcome_checker = OutcomeChecker.new(board:)
 
@@ -124,7 +124,7 @@ describe 'Outcome Checker' do
 
     context 'when the board is not full and #win? is false' do
       it 'returns false' do
-        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_no_win_with_open_spaces, test_full: false)
+        board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_no_win_with_open_spaces, test_full: false)
 
         outcome_checker = OutcomeChecker.new(board:)
 
@@ -134,7 +134,7 @@ describe 'Outcome Checker' do
 
     context 'when the board is full and #win? is true' do
       it 'returns false' do
-        board = TestBoardForOutcomeChecker.new(test_lines: test_lines_win_with_full_board, test_full: true)
+        board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_win_with_full_board, test_full: true)
 
         outcome_checker = OutcomeChecker.new(board:)
 

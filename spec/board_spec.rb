@@ -61,7 +61,7 @@ describe 'Board' do
     end
   end
 
-  describe '#lines' do
+  describe '#combinations' do
     context 'given an empty board' do
       it 'returns the correct values' do
         board = Board.new
@@ -72,13 +72,13 @@ describe 'Board' do
           7, 8, 9
         ]
 
-        expected_lines = [
+        expected_combinations = [
           [1, 2, 3], [4, 5, 6], [7, 8, 9],
           [1, 4, 7], [2, 5, 8], [3, 6, 9],
           [1, 5, 9], [3, 5, 7]
         ]
 
-        expect(board.lines).to eq(expected_lines)
+        expect(board.combinations).to eq(expected_combinations)
       end
     end
 
@@ -92,13 +92,13 @@ describe 'Board' do
           'O', 'X', 'O'
         ]
 
-        expected_lines = [
+        expected_combinations = [
           ['O', 'O', 'X'], ['X', 'X', 'O'], ['O', 'X', 'O'],
           ['O', 'X', 'O'], ['O', 'X', 'X'], ['X', 'O', 'O'],
           ['O', 'X', 'O'], ['X', 'X', 'O']
         ]
 
-        expect(board.lines).to eq(expected_lines)
+        expect(board.combinations).to eq(expected_combinations)
       end
     end
   end

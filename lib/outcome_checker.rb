@@ -4,7 +4,7 @@ class OutcomeChecker
   end
 
   def win?
-    winning_combo?(board.lines)
+    winning_combo?(board.combinations)
   end
 
   def draw?
@@ -15,11 +15,11 @@ class OutcomeChecker
 
   attr_reader :board
 
-  def winning_combo?(lines)
-    lines.any? { |line| all_equal?(line) }
+  def winning_combo?(combinations)
+    combinations.any? { |combination| all_equal?(combination) }
   end
 
-  def all_equal?(line)
-    line.uniq.length == 1
+  def all_equal?(combination)
+    combination.uniq.length == 1
   end
 end

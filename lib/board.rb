@@ -27,7 +27,7 @@ class Board
     space.is_a?(Integer)
   end
 
-  def lines
+  def combinations
     rows + columns + diagonals
   end
 
