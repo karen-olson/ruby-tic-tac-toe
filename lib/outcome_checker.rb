@@ -8,7 +8,6 @@ class OutcomeChecker
   end
 
   def draw?
-    # board.full? && !win?
     full_board?(board.combinations) && !win?
   end
 

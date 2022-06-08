@@ -12,7 +12,6 @@ class GameLooper
 
   def loop
     take_turns(players) until game_is_over
-    # until board.has_outcome { take_turns(players) }
     display_board
   end
 
