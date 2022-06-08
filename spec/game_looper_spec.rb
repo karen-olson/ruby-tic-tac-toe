@@ -31,20 +31,9 @@ class TestPrompt
 end
 
 class TestOutcomeCheckerForGameLooper
-  # attr_reader :test_draw, :test_win
   def initialize(board:)
     @board = board
-    # @test_draw = test_draw
-    # @test_win = test_win
   end
-
-  # def win?
-  #   test_win
-  # end
-
-  # def draw?
-  #   test_draw
-  # end
 end
 
 describe 'Game Looper' do
@@ -98,31 +87,5 @@ describe 'Game Looper' do
 
       expect(console.messages).to eq(expected_console_messages)
     end
-
-    # it 'gives each player a turn' do
-    #     console = TestConsole.new
-    #     prompt = TestPrompt.new
-    #     board = TestBoard.new
-    #     display = TestDisplay.new
-    #     player_one = TestPlayer.new('X')
-    #     player_two = TestPlayer.new('O')
-    #     players = [player_one, player_two]
-
-    #     allow(board).to receive(:full?).and_return(false, false, true)
-    #     allow(board).to receive(:mark_space).and_return('empty board',
-    #     'board with an X in space 8', 'board with an O in space 2')
-    #     allow(board).to receive(:values).and_return()
-
-    #     allow(display).to receive(:present).and_return()
-
-    #     game_looper = GameLooper.new(console: console, prompt: prompt,
-    #     board: board, display: display, players: players)
-
-    #     game_looper.loop
-
-    #     expected_console_messages = ['empty board', 'board with X in space 8', 'board with O in space 2']
-
-    #     expect(console.messages).to eq(expected_console_messages)
-    # end
   end
 end

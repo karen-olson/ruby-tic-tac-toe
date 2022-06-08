@@ -11,7 +11,7 @@ class TestBoardForEmptyBoard
       [1, 2] => 6,
       [2, 0] => 7,
       [2, 1] => 8,
-      [2, 2] => 9,
+      [2, 2] => 9
     }[[row, column]]
   end
 end
