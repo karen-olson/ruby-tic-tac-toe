@@ -8,7 +8,8 @@ class OutcomeChecker
   end
 
   def draw?
-    board.full? && !win?
+    # board.full? && !win?
+    full_board?(board.combinations) && !win?
   end
 
   private
@@ -21,5 +22,9 @@ class OutcomeChecker
 
   def all_equal?(combination)
     combination.uniq.length == 1
+  end
+
+  def full_board?(combinations)
+    combinations.none? { |combination| combination.any?(Integer) }
   end
 end

@@ -16,12 +16,6 @@ class Board
     values[space - 1] = token
   end
 
-  def full?
-    open_board = (1..values.length).to_a
-    open_spaces = values & open_board
-    open_spaces.empty?
-  end
-
   def available?(input)
     space = values[input - 1]
     space.is_a?(Integer)
