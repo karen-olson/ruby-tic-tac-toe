@@ -6,6 +6,7 @@ require 'prompt'
 require 'board'
 require 'player'
 require 'number_validator'
+require 'ui'
 require 'stringio'
 require 'pry'
 
@@ -34,7 +35,7 @@ class TestGameLooper
 end
 
 describe 'Game' do
-  context '#run' do
+  context '#run', :integration => true do
     it 'plays the game' do
       console = TestConsole.new
       game_looper = TestGameLooper.new(console)
@@ -54,10 +55,11 @@ describe 'Game' do
       board = Board.new
       outcome_checker = OutcomeChecker.new(board:)
       number_validator = NumberValidator.new
-      prompt = Prompt.new(console:, number_validator:, board:)
-      display = Display.new
+      prompter = Prompt.new(console:, number_validator:, board:)
+      display = Display.new(console:)
+      ui = UI.new(display:, prompter:)
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
+      game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
       game = Game.new(console:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('9')
@@ -83,10 +85,11 @@ describe 'Game' do
       board = Board.new
       outcome_checker = OutcomeChecker.new(board:)
       number_validator = NumberValidator.new
-      prompt = Prompt.new(console:, number_validator:, board:)
-      display = Display.new
+      prompter = Prompt.new(console:, number_validator:, board:)
+      display = Display.new(console:)
+      ui = UI.new(display:, prompter:)
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-      game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
+      game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
       game = Game.new(console:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('7')
