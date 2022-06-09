@@ -1,18 +1,18 @@
 class UI
-    def initialize(display:, prompter:)
-        @display = display 
-        @prompter = prompter
-    end
+  def initialize(display:, prompter:)
+    @display = display
+    @prompter = prompter
+  end
 
-    def display_board(board)
-        display.present(board)
-    end
+  def display_board(board)
+    display.present(board)
+  end
 
-    def prompt
-        prompter.call
-    end
+  def prompt
+    prompter.call
+  end
 
-    private 
+  private
 
-    attr_reader :display, :prompter
+  attr_reader :display, :prompter
 end

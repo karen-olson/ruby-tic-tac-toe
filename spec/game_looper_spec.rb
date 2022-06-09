@@ -28,7 +28,7 @@ class TestBoard
     @values = values
     @move_history = []
   end
-  
+
   def mark_space(token, space)
     move_history << "Board with #{token} in space #{space}"
   end
@@ -59,9 +59,9 @@ class TestUI
     @output = []
     @input = input
   end
-  
-  def display_board(board)
-    self.output << 'board displayed'
+
+  def display_board(_board)
+    output << 'board displayed'
   end
 
   def prompt
@@ -70,7 +70,6 @@ class TestUI
 end
 
 describe 'Game Looper' do
-
   describe '#loop' do
     context 'until there is a draw' do
       it 'loops' do
@@ -79,7 +78,8 @@ describe 'Game Looper' do
         test_draw_values = []
         ui = TestUI.new(input: test_input)
         board = TestBoard.new
-        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values, draw_values: test_draw_values)
+        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
+                                                              draw_values: test_draw_values)
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
@@ -124,14 +124,15 @@ describe 'Game Looper' do
         test_win_values = [false, false, false, true]
         test_draw_values = [false, false, false, false]
         test_board = [
-          'X',  2, 'O',
-          'O', 'X','X',
-          'O',  8, 'O'
+          'X', 2, 'O',
+          'O', 'X', 'X',
+          'O', 8, 'O'
         ]
 
         ui = TestUI.new(input: test_input)
         board = TestBoard.new(values: test_board)
-        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values, draw_values: test_draw_values)
+        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
+                                                              draw_values: test_draw_values)
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]

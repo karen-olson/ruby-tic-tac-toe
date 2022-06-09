@@ -12,6 +12,9 @@ Lint/EmptyClass:
   Enabled: false
 Naming/PredicateName:
   Enabled: false
+Naming/MethodParameterName:
+  Exclude:
+  - lib/game_looper.rb
 Metrics/BlockLength:
   Exclude:
   - spec/game_spec.rb

@@ -1,6 +1,4 @@
-
 class Display
-
   def initialize(console:)
     @console = console
   end
@@ -9,8 +7,8 @@ class Display
     console.output(board_display(board))
   end
 
-  private 
-  
+  private
+
   attr_reader :console
 
   def board_display(board)

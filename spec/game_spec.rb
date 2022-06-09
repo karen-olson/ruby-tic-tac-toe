@@ -35,7 +35,7 @@ class TestGameLooper
 end
 
 describe 'Game' do
-  context '#run', :integration => true do
+  context '#run', integration: true do
     it 'plays the game' do
       console = TestConsole.new
       game_looper = TestGameLooper.new(console)

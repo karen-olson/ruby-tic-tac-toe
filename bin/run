@@ -17,7 +17,7 @@ outcome_checker = OutcomeChecker.new(board:)
 display = Display.new(console:)
 number_validator = NumberValidator.new
 prompter = Prompt.new(console:, number_validator:,
-                    board:)
+                      board:)
 ui = UI.new(display:, prompter:)
 player_one = Player.new(marker: 'X')
 player_two = Player.new(marker: 'O')
