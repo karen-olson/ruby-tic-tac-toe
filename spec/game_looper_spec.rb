@@ -84,8 +84,8 @@ describe 'Game Looper' do
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
 
-        allow(outcome_checker).to receive(:draw?).and_return(false, false, false, false, true)
-        allow(outcome_checker).to receive(:win?).and_return(false, false, false, false, false)
+        allow(outcome_checker).to receive(:draw?).and_return(false, false, true)
+        allow(outcome_checker).to receive(:win?).and_return(false, false, false)
 
         game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
 
@@ -107,8 +107,8 @@ describe 'Game Looper' do
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
 
-        allow(outcome_checker).to receive(:draw?).and_return(false, false, false, false, false)
-        allow(outcome_checker).to receive(:win?).and_return(false, false, false, false, true)
+        allow(outcome_checker).to receive(:draw?).and_return(false, false, false)
+        allow(outcome_checker).to receive(:win?).and_return(false, false, true)
 
         game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
 

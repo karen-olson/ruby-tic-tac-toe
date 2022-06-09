@@ -23,12 +23,12 @@ class GameLooper
 
   def take_turns(players)
     players.each do |player|
+      display_board
       take_turn(player) unless game_is_over
     end
   end
 
   def take_turn(player)
-    display_board
     move = get_move
     mark_board(player, move)
   end
