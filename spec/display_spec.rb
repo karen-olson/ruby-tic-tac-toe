@@ -16,11 +16,24 @@ class TestBoardForEmptyBoard
   end
 end
 
+class TestConsoleForDisplay
+  attr_accessor :messages
+
+  def initialize
+    @messages = []
+  end
+
+  def output(message)
+    messages << message
+  end
+end
+
 describe 'Display' do
   context '#present' do
     it 'presents a formatted 3x3 board' do
+      console = TestConsole.new
       board = TestBoardForEmptyBoard.new
-      display = Display.new
+      display = Display.new(console:)
 
       expected_board_output = <<~BOARD
          1 | 2 | 3
@@ -30,7 +43,9 @@ describe 'Display' do
          7 | 8 | 9
       BOARD
 
-      expect(display.present(board)).to eq(expected_board_output)
+      display.present(board)
+
+      expect(console.messages).to eq([expected_board_output])
     end
   end
 end
