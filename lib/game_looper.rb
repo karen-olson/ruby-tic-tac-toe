@@ -1,10 +1,8 @@
 require 'pry'
 
 class GameLooper
-  def initialize(console:, display:, prompt:, board:, players:, outcome_checker:)
-    @console = console
-    @display = display
-    @prompt = prompt
+  def initialize(ui:, board:, players:, outcome_checker:)
+    @ui = ui
     @board = board
     @players = players
     @outcome_checker = outcome_checker
@@ -17,7 +15,7 @@ class GameLooper
 
   private
 
-  attr_reader :console, :display, :prompt, :board, :players, :outcome_checker
+  attr_reader :ui, :board, :players, :outcome_checker
 
   def game_is_over
     outcome_checker.draw? || outcome_checker.win?
@@ -36,15 +34,11 @@ class GameLooper
   end
 
   def display_board
-    board_display = display.present(board)
-    console.output(board_display)
+    ui.display_board(board)
   end
 
   def get_move
-    message = 'Enter a number 1-9: '
-    error_message = 'Please enter a valid number.'
-
-    prompt.call(message, error_message)
+    ui.prompt
   end
 
   def mark_board(player, move)

@@ -9,17 +9,19 @@ require_relative '../lib/board'
 require_relative '../lib/number_validator'
 require_relative '../lib/outcome_checker'
 require_relative '../lib/player'
+require_relative '../lib/ui'
 
 console = Console.new(stdout: $stdout, stdin: $stdin)
 board = Board.new
 outcome_checker = OutcomeChecker.new(board:)
-display = Display.new
+display = Display.new(console:)
 number_validator = NumberValidator.new
-prompt = Prompt.new(console:, number_validator:,
+prompter = Prompt.new(console:, number_validator:,
                     board:)
+ui = UI.new(display:, prompter:)
 player_one = Player.new(marker: 'X')
 player_two = Player.new(marker: 'O')
 players = [player_one, player_two]
-game_looper = GameLooper.new(console:, display:, prompt:, board:, players:, outcome_checker:)
+game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
 game = Game.new(console:, game_looper:)
 game.run
