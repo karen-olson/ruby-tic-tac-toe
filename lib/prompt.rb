@@ -11,15 +11,15 @@ class Prompt
     @valid_input = nil
   end
 
-  def call(message, error_message)
+  def call
     @valid_input = nil
 
     until valid_input
-      console.output(message)
+      console.output('Please choose a space.')
       input = console.gets_input
       range = 1..9
 
-      validate_input(input, range, error_message)
+      validate_input(input, range)
     end
 
     valid_input
@@ -27,13 +27,13 @@ class Prompt
 
   private
 
-  def validate_input(input, range, error_message)
+  def validate_input(input, range)
     valid_space_number = valid_space_number(input, range)
 
     if valid_space_number && board.available?(valid_space_number)
       self.valid_input = valid_space_number
     else
-      console.output(error_message)
+      console.output('Please enter a valid number.')
     end
   end
 
