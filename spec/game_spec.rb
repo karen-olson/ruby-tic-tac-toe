@@ -6,45 +6,52 @@ require 'prompt'
 require 'board'
 require 'player'
 require 'number_validator'
+require 'outcome_checker'
 require 'ui'
 require 'stringio'
 require 'pry'
 
-class TestConsole
-  attr_reader :messages
+class TestUIForGame
+  attr_accessor :output
 
   def initialize
-    @messages = []
+    @output = []
+  end
+  
+  def welcome
+    output << 'Welcome to Tic Tac Toe!'
   end
 
-  def output(message)
-    @messages << message
+  def goodbye
+    output << 'Thank you for playing. Goodbye!'
   end
 end
 
 class TestGameLooper
-  attr_reader :console
+  attr_accessor :methods_called
 
-  def initialize(console)
-    @console = console
+  def initialize
+    @methods_called = []
   end
 
   def loop
-    console.output('Looping')
+    methods_called << 'Loop'
   end
 end
 
 describe 'Game' do
   context '#run', integration: true do
     it 'plays the game' do
-      console = TestConsole.new
-      game_looper = TestGameLooper.new(console)
-      game = Game.new(console:, game_looper:)
+      ui = TestUIForGame.new
+      game_looper = TestGameLooper.new
+      game = Game.new(ui:, game_looper:)
 
       game.run
 
-      expected_output = ['Welcome to Tic Tac Toe!', 'Looping', 'Thank you for playing. Goodbye!']
-      expect(console.messages).to eq(expected_output)
+      expected_output = ['Welcome to Tic Tac Toe!', 'Thank you for playing. Goodbye!']
+      expected_methods_called = ['Loop']
+      expect(ui.output).to eq(expected_output)
+      expect(game_looper.methods_called).to eq(expected_methods_called)
     end
 
     it 'exits the game when there is a win' do
@@ -60,7 +67,8 @@ describe 'Game' do
       ui = UI.new(display:, prompter:)
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
       game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
-      game = Game.new(console:, game_looper:)
+
+      game = Game.new(ui:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('9')
       board.values = [
@@ -90,7 +98,7 @@ describe 'Game' do
       ui = UI.new(display:, prompter:)
       players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
       game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
-      game = Game.new(console:, game_looper:)
+      game = Game.new(ui:, game_looper:)
 
       allow($stdin).to receive(:gets).and_return('7')
       board.values = [

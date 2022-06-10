@@ -48,4 +48,16 @@ describe 'Display' do
       expect(console.messages).to eq([expected_board_output])
     end
   end
+
+  context '#message' do
+    it 'prints the message to the console' do
+      console = TestConsole.new
+      message = "My message"
+      display = Display.new(console:)
+
+      display.message(message)
+
+      expect(console.messages).to eq([message])
+    end
+  end
 end

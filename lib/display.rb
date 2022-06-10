@@ -7,6 +7,10 @@ class Display
     console.output(board_display(board))
   end
 
+  def message(message)
+    console.output(message)
+  end
+
   private
 
   attr_reader :console

@@ -10,6 +10,10 @@ class TestDisplayForUI
   def present(board)
     displayed << board
   end
+
+  def message(message)
+    displayed << message
+  end
 end
 
 class TestPrompterForUI
@@ -50,6 +54,34 @@ describe 'UI' do
         ui.prompt
 
         expect(prompter.called).to eq(['Prompter called'])
+      end
+    end
+  end
+
+  describe '#welcome' do
+    context 'when called' do
+      it 'displays a welcome message to the user' do
+        display = TestDisplayForUI.new
+        prompter = TestPrompterForUI.new
+        ui = UI.new(display:, prompter:)
+
+        ui.welcome
+
+        expect(display.displayed).to eq(['Welcome to Tic Tac Toe!'])
+      end
+    end
+  end
+
+  describe '#goodbye' do
+    context 'when called' do
+      it 'displays a goodbye message to the user' do
+        display = TestDisplayForUI.new
+        prompter = TestPrompterForUI.new
+        ui = UI.new(display:, prompter:)
+
+        ui.goodbye
+
+        expect(display.displayed).to eq(['Thank you for playing. Goodbye!'])
       end
     end
   end

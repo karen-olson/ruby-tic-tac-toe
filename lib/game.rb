@@ -1,26 +1,16 @@
 require 'pry'
 
 class Game
-  attr_reader :console, :game_looper
+  attr_reader :game_looper, :ui
 
-  def initialize(console:, game_looper:)
-    @console = console
+  def initialize(ui:, game_looper:)
+    @ui = ui
     @game_looper = game_looper
   end
 
   def run
-    welcome_players
+    ui.welcome
     game_looper.loop
-    goodbye_players
-  end
-
-  private
-
-  def welcome_players
-    console.output('Welcome to Tic Tac Toe!')
-  end
-
-  def goodbye_players
-    console.output('Thank you for playing. Goodbye!')
+    ui.goodbye
   end
 end

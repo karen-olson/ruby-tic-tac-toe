@@ -23,5 +23,5 @@ player_one = Player.new(marker: 'X')
 player_two = Player.new(marker: 'O')
 players = [player_one, player_two]
 game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
-game = Game.new(console:, game_looper:)
+game = Game.new(ui:, game_looper:)
 game.run
