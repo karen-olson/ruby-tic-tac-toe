@@ -17,7 +17,7 @@ class TestUIForGame
   def initialize
     @output = []
   end
-  
+
   def welcome
     output << 'Welcome to Tic Tac Toe!'
   end

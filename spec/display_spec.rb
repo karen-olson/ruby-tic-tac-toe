@@ -52,7 +52,7 @@ describe 'Display' do
   context '#message' do
     it 'prints the message to the console' do
       console = TestConsole.new
-      message = "My message"
+      message = 'My message'
       display = Display.new(console:)
 
       display.message(message)
