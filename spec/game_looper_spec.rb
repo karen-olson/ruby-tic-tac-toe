@@ -100,7 +100,7 @@ describe 'Game Looper' do
         test_win_values = [false, false, false, true]
         test_draw_values = [false, false, false, false]
         outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
-          draw_values: test_draw_values)
+                                                              draw_values: test_draw_values)
 
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
