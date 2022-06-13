@@ -146,17 +146,17 @@ describe 'Outcome Checker' do
     context 'when the game is in progress' do
       it 'returns true' do
         board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_no_win_with_open_spaces)
-        
+
         outcome_checker = OutcomeChecker.new(board:)
 
         expect(outcome_checker.in_progress?).to eq(true)
       end
     end
-    
+
     context 'when there is a win' do
       it 'returns false' do
         board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_win_with_open_spaces)
-        
+
         outcome_checker = OutcomeChecker.new(board:)
 
         expect(outcome_checker.in_progress?).to eq(false)
@@ -166,7 +166,7 @@ describe 'Outcome Checker' do
     context 'when there is a draw' do
       it 'returns false' do
         board = TestBoardForOutcomeChecker.new(test_combinations: test_combinations_draw)
-        
+
         outcome_checker = OutcomeChecker.new(board:)
 
         expect(outcome_checker.in_progress?).to eq(false)
