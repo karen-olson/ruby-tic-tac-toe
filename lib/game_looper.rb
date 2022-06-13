@@ -1,5 +1,3 @@
-require 'pry'
-
 class GameLooper
   def initialize(ui:, board:, players:, outcome_checker:)
     @ui = ui

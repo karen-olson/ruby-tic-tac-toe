@@ -1,8 +1,4 @@
-require 'pry'
-
 class Game
-  attr_reader :game_looper, :ui
-
   def initialize(ui:, game_looper:)
     @ui = ui
     @game_looper = game_looper
@@ -13,4 +9,8 @@ class Game
     game_looper.loop
     ui.goodbye
   end
+
+  private
+
+  attr_reader :game_looper, :ui
 end

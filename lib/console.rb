@@ -1,8 +1,6 @@
 require 'pry'
 
 class Console
-  attr_reader :stdout, :stdin
-
   def initialize(stdout: $stdout, stdin: $stdin)
     @stdout = stdout
     @stdin = stdin
@@ -15,4 +13,8 @@ class Console
   def gets_input
     stdin.gets.chomp
   end
+
+  private
+
+  attr_reader :stdout, :stdin
 end

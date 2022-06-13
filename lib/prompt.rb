@@ -1,9 +1,4 @@
-require 'pry'
-
 class Prompt
-  attr_reader :console, :board, :number_validator
-  attr_accessor :valid_input
-
   def initialize(console:, board:, number_validator:)
     @console = console
     @board = board
@@ -26,6 +21,9 @@ class Prompt
   end
 
   private
+
+  attr_reader :console, :board, :number_validator
+  attr_accessor :valid_input
 
   def validate_input(input, range)
     valid_space_number = valid_space_number(input, range)
