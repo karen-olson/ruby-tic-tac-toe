@@ -60,8 +60,6 @@ class TestOutcomeCheckerAlwaysResultsInDraw
     true unless in_progress?
   end
 
-  private
-
   def in_progress?
     in_progress_values.shift
   end
@@ -83,8 +81,6 @@ class TestOutcomeCheckerAlwaysResultsInWin
     false
   end
 
-  private
-
   def in_progress?
     in_progress_values.shift
   end
@@ -105,8 +101,6 @@ class TestOutcomeCheckerWinsAfterTwoTurns
   def draw?
     false
   end
-
-  private
 
   def in_progress?
     in_progress_values.shift
