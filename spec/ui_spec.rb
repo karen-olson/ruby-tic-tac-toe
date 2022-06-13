@@ -65,8 +65,7 @@ describe 'UI' do
         display = TestDisplayForUI.new
         prompter = TestPrompterForUI.new
         ui = UI.new(display:, prompter:)
-        
-        
+
         ui.with_greeting_and_salutation do
           display.message('Block called')
         end

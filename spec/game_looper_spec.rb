@@ -44,21 +44,72 @@ class TestBoard
   end
 end
 
-class TestOutcomeCheckerForGameLooper
-  attr_accessor :board, :win_values, :draw_values
+class TestOutcomeCheckerAlwaysResultsInDraw
+  attr_accessor :board, :in_progress_values
 
-  def initialize(board:, win_values:, draw_values:)
+  def initialize(board:)
     @board = board
-    @win_values = win_values
-    @draw_values = draw_values
+    @in_progress_values = [true, false]
   end
 
   def win?
-    win_values.shift
+    false
   end
 
   def draw?
-    draw_values.shift
+    true unless in_progress?
+  end
+
+  private
+
+  def in_progress?
+    in_progress_values.shift
+  end
+end
+
+class TestOutcomeCheckerAlwaysResultsInWin
+  attr_accessor :board, :in_progress_values
+
+  def initialize(board:)
+    @board = board
+    @in_progress_values = [true, false]
+  end
+
+  def win?
+    true unless in_progress?
+  end
+
+  def draw?
+    false
+  end
+
+  private
+
+  def in_progress?
+    in_progress_values.shift
+  end
+end
+
+class TestOutcomeCheckerWinsAfterTwoTurns
+  attr_accessor :board, :in_progress_values
+
+  def initialize(board:)
+    @board = board
+    @in_progress_values = [true, true, true, false]
+  end
+
+  def win?
+    true unless in_progress?
+  end
+
+  def draw?
+    false
+  end
+
+  private
+
+  def in_progress?
+    in_progress_values.shift
   end
 end
 
@@ -107,17 +158,17 @@ describe 'Game Looper' do
 
         output = $stdout.string.split("\n")
         expected_output = [
-          " X | 0 | 0", 
-          "---+---+---", 
-          " O | O | X", 
-          "---+---+---", 
-          " 7 | X | O", 
-          "Please choose a space.", 
-          " X | 0 | 0", 
-          "---+---+---", 
-          " O | O | X", 
-          "---+---+---", 
-          " X | X | O"
+          ' X | 0 | 0',
+          '---+---+---',
+          ' O | O | X',
+          '---+---+---',
+          ' 7 | X | O',
+          'Please choose a space.',
+          ' X | 0 | 0',
+          '---+---+---',
+          ' O | O | X',
+          '---+---+---',
+          ' X | X | O'
         ]
         expect(output).to eq(expected_output)
 
@@ -130,10 +181,8 @@ describe 'Game Looper' do
         ui = TestUI.new
         board = TestBoard.new
 
-        test_win_values = [false, false, false, false]
-        test_draw_values = [false, false, false, true]
-        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
-                                                              draw_values: test_draw_values)
+        outcome_checker = TestOutcomeCheckerAlwaysResultsInDraw.new(board:)
+
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
@@ -163,26 +212,26 @@ describe 'Game Looper' do
 
         allow($stdin).to receive(:gets).and_return('9')
         board.values = [
-          'X', 2,  3,
-           4, 'X', 6,
-           7,  8,  9
+          'X', 2, 3,
+          4, 'X', 6,
+          7, 8, 9
         ]
 
         game_looper.loop
 
         output = $stdout.string.split("\n")
         expected_output = [
-          " X | 2 | 3", 
-          "---+---+---", 
-          " 4 | X | 6", 
-          "---+---+---", 
-          " 7 | 8 | 9", 
-          "Please choose a space.", 
-          " X | 2 | 3", 
-          "---+---+---", 
-          " 4 | X | 6", 
-          "---+---+---", 
-          " 7 | 8 | X"
+          ' X | 2 | 3',
+          '---+---+---',
+          ' 4 | X | 6',
+          '---+---+---',
+          ' 7 | 8 | 9',
+          'Please choose a space.',
+          ' X | 2 | 3',
+          '---+---+---',
+          ' 4 | X | 6',
+          '---+---+---',
+          ' 7 | 8 | X'
         ]
         expect(output).to eq(expected_output)
 
@@ -195,10 +244,7 @@ describe 'Game Looper' do
         ui = TestUI.new
         board = TestBoard.new
 
-        test_win_values = [false, false, false, true]
-        test_draw_values = [false, false, false, false]
-        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
-                                                              draw_values: test_draw_values)
+        outcome_checker = TestOutcomeCheckerAlwaysResultsInWin.new(board:)
 
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
@@ -212,22 +258,19 @@ describe 'Game Looper' do
       end
     end
 
-    context 'until the game is over' do
-      it 'gives each player a turn' do
+    context 'given real objects' do
+      it 'gives each player a turn until the game is over' do
         test_input = [2, 8]
         ui = TestUI.new(input: test_input)
 
         test_board = [
-          'X', 2, 'O',
-          'O', 'X', 'X',
-          'O', 8, 'O'
+          'X',  2, 'O',
+          'O', 'X','X',
+          'O',  8, 'O'
         ]
         board = TestBoard.new(values: test_board)
 
-        test_win_values = [false, false, false, true]
-        test_draw_values = [false, false, false, false]
-        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
-                                                              draw_values: test_draw_values)
+        outcome_checker = TestOutcomeCheckerWinsAfterTwoTurns.new(board:)
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
