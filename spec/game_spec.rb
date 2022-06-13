@@ -28,14 +28,14 @@ class TestUIForGame
 end
 
 class TestGameLooper
-  attr_accessor :methods_called
+  attr_accessor :messages_sent
 
   def initialize
-    @methods_called = []
+    @messages_sent = []
   end
 
   def loop
-    methods_called << 'Loop'
+    messages_sent << 'Loop'
   end
 end
 
@@ -49,9 +49,9 @@ describe 'Game' do
       game.run
 
       expected_output = ['Welcome to Tic Tac Toe!', 'Thank you for playing. Goodbye!']
-      expected_methods_called = ['Loop']
+      expected_messages_sent = ['Loop']
       expect(ui.output).to eq(expected_output)
-      expect(game_looper.methods_called).to eq(expected_methods_called)
+      expect(game_looper.messages_sent).to eq(expected_messages_sent)
     end
 
     it 'exits the game when there is a win' do

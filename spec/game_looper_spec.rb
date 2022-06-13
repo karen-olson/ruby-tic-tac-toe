@@ -88,7 +88,7 @@ describe 'Game Looper' do
 
         game_looper.loop
 
-        expect(ui.output).to eq(['board displayed', 'board displayed', 'board displayed'])
+        expect(ui.output).to eq(['board displayed', 'board displayed'])
       end
     end
 
@@ -110,7 +110,7 @@ describe 'Game Looper' do
 
         game_looper.loop
 
-        expect(ui.output).to eq(['board displayed', 'board displayed', 'board displayed'])
+        expect(ui.output).to eq(['board displayed', 'board displayed'])
       end
     end
 

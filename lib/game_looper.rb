@@ -8,7 +8,6 @@ class GameLooper
 
   def loop
     take_turns(players) until game_is_over
-    display_board
   end
 
   private
