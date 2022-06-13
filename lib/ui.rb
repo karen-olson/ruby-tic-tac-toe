@@ -12,11 +12,9 @@ class UI
     display.present(board)
   end
 
-  def welcome
+  def with_greeting_and_salutation(&block)
     display.message(welcome_message)
-  end
-
-  def goodbye
+    block.call
     display.message(goodbye_message)
   end
 

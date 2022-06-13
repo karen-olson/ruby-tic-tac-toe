@@ -1,4 +1,5 @@
 require 'ui'
+require 'pry'
 
 class TestDisplayForUI
   attr_reader :displayed
@@ -58,30 +59,19 @@ describe 'UI' do
     end
   end
 
-  describe '#welcome' do
+  describe '#with_greeting_and_salutation' do
     context 'when called' do
-      it 'displays a welcome message to the user' do
+      it 'displays messages to the user and executes the given block' do
         display = TestDisplayForUI.new
         prompter = TestPrompterForUI.new
         ui = UI.new(display:, prompter:)
+        
+        
+        ui.with_greeting_and_salutation do
+          display.message('Block called')
+        end
 
-        ui.welcome
-
-        expect(display.displayed).to eq(['Welcome to Tic Tac Toe!'])
-      end
-    end
-  end
-
-  describe '#goodbye' do
-    context 'when called' do
-      it 'displays a goodbye message to the user' do
-        display = TestDisplayForUI.new
-        prompter = TestPrompterForUI.new
-        ui = UI.new(display:, prompter:)
-
-        ui.goodbye
-
-        expect(display.displayed).to eq(['Thank you for playing. Goodbye!'])
+        expect(display.displayed).to eq(['Welcome to Tic Tac Toe!', 'Block called', 'Thank you for playing. Goodbye!'])
       end
     end
   end
