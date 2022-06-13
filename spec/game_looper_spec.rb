@@ -55,7 +55,7 @@ end
 class TestUI
   attr_reader :output, :input
 
-  def initialize(input:)
+  def initialize(input: [])
     @output = []
     @input = input
   end
@@ -73,19 +73,16 @@ describe 'Game Looper' do
   describe '#loop' do
     context 'until there is a draw' do
       it 'loops' do
-        test_input = []
-        test_win_values = []
-        test_draw_values = []
-        ui = TestUI.new(input: test_input)
+        ui = TestUI.new
         board = TestBoard.new
+
+        test_win_values = [false, false, false, false]
+        test_draw_values = [false, false, false, true]
         outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
                                                               draw_values: test_draw_values)
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
-
-        allow(outcome_checker).to receive(:draw?).and_return(false, false, true)
-        allow(outcome_checker).to receive(:win?).and_return(false, false, false)
 
         game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
 
@@ -97,18 +94,17 @@ describe 'Game Looper' do
 
     context 'until there is a win' do
       it 'loops' do
-        test_input = []
-        ui = TestUI.new(input: test_input)
+        ui = TestUI.new
         board = TestBoard.new
-        win_values = [false, false, true]
-        draw_values = [false, false, false]
-        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values:, draw_values:)
+
+        test_win_values = [false, false, false, true]
+        test_draw_values = [false, false, false, false]
+        outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
+          draw_values: test_draw_values)
+
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
-
-        allow(outcome_checker).to receive(:draw?).and_return(false, false, false)
-        allow(outcome_checker).to receive(:win?).and_return(false, false, true)
 
         game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
 
@@ -121,16 +117,17 @@ describe 'Game Looper' do
     context 'until the game is over' do
       it 'gives each player a turn' do
         test_input = [2, 8]
-        test_win_values = [false, false, false, true]
-        test_draw_values = [false, false, false, false]
+        ui = TestUI.new(input: test_input)
+
         test_board = [
           'X', 2, 'O',
           'O', 'X', 'X',
           'O', 8, 'O'
         ]
-
-        ui = TestUI.new(input: test_input)
         board = TestBoard.new(values: test_board)
+
+        test_win_values = [false, false, false, true]
+        test_draw_values = [false, false, false, false]
         outcome_checker = TestOutcomeCheckerForGameLooper.new(board:, win_values: test_win_values,
                                                               draw_values: test_draw_values)
         player_one = TestPlayer.new('X')
