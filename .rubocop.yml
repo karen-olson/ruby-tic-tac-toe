@@ -18,12 +18,7 @@ Naming/MethodParameterName:
   - lib/game_looper.rb
 Metrics/BlockLength:
   Exclude:
-  - spec/game_spec.rb
-  - spec/game_looper_spec.rb
-  - spec/ui_spec.rb
-  - spec/prompt_spec.rb
-  - spec/board_spec.rb
-  - spec/outcome_checker_spec.rb
+  - spec/*
 Metrics/MethodLength:
   Exclude:
   - spec/display_spec.rb
