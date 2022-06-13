@@ -265,8 +265,8 @@ describe 'Game Looper' do
 
         test_board = [
           'X',  2, 'O',
-          'O', 'X','X',
-          'O',  8, 'O'
+          'O', 'X', 'X',
+          'O', 8, 'O'
         ]
         board = TestBoard.new(values: test_board)
 

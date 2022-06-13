@@ -25,5 +25,5 @@ players = [player_one, player_two]
 game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
 
 ui.with_greeting_and_salutation do
-    game_looper.loop
+  game_looper.loop
 end
