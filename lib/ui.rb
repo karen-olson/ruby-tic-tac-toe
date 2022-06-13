@@ -4,7 +4,7 @@ class UI
     @prompter = prompter
   end
 
-  def prompt
+  def get_move
     prompter.call
   end
 

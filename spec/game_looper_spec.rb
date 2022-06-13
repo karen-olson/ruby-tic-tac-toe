@@ -64,7 +64,7 @@ class TestUI
     output << 'board displayed'
   end
 
-  def prompt
+  def get_move
     input.shift
   end
 end

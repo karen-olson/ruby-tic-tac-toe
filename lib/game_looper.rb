@@ -29,16 +29,12 @@ class GameLooper
   end
 
   def take_turn(player)
-    move = get_move
+    move = ui.get_move
     mark_board(player, move)
   end
 
   def display_board
     ui.display_board(board)
-  end
-
-  def get_move
-    ui.prompt
   end
 
   def mark_board(player, move)

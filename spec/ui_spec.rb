@@ -44,14 +44,14 @@ describe 'UI' do
     end
   end
 
-  describe '#prompt' do
+  describe '#get_move' do
     context 'when user input is requested' do
-      it 'prompts the user' do
+      it "gets the next player's move" do
         display = TestDisplayForUI.new
         prompter = TestPrompterForUI.new
         ui = UI.new(display:, prompter:)
 
-        ui.prompt
+        ui.get_move
 
         expect(prompter.called).to eq(['Prompter called'])
       end
