@@ -172,6 +172,7 @@ describe 'Game Looper' do
       class RecordMessages
         def initialize()
           @events = []
+          @moves = [1, 2]
         end
         attr_reader :events
 
@@ -181,7 +182,7 @@ describe 'Game Looper' do
 
         def get_move
           events << "prompt user"
-          1
+          @moves.shift
         end
 
         def mark_space(marker, move)
@@ -192,21 +193,21 @@ describe 'Game Looper' do
       class HasOutcomeFor
         def initialize(rounds:)
           @rounds = Array.new(rounds + 1) { |i| true }
+          @winner = winner
         end
 
         def in_progress?
           @rounds.shift
         end
 
-        # def on_outcome(winner:, draw:, in_progress:)
-        # end
-      
+        def on_outcome(winner:, draw:, in_progress:)
+          
+        end
       end
 
 
       it "works" do
-        outcome_checker = HasOutcomeFor.new(rounds: 2)
-        # outcome_checker = HasOutcomeFor.new(rounds: 2, winner: "X")
+        outcome_checker = HasOutcomeFor.new(rounds: 2, winner: "O")
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
         players = [player_one, player_two]
@@ -219,11 +220,12 @@ describe 'Game Looper' do
         expect(messages.events).to eq([
           "display board",
           "prompt user",
-          "mark space",
+          "X moves to 1",
           "display board",
           "prompt user",
+          "O moves to 2",
           "display board",
-          "x wins"
+          "O wins"
         ])
       end
     end
