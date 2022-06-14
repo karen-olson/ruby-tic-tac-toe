@@ -126,119 +126,12 @@ end
 
 describe 'Game Looper' do
   describe '#loop' do
-    context 'given real objects', integration: true do
-      it 'loops until there is a draw' do
-        original_stdout = $stdout
-        $stdout = StringIO.new
-
-        console = Console.new(stdin: $stdin, stdout: $stdout)
-        board = Board.new
-        outcome_checker = OutcomeChecker.new(board:)
-        number_validator = NumberValidator.new
-        prompter = Prompt.new(console:, number_validator:, board:)
-        display = Display.new(console:)
-        ui = UI.new(display:, prompter:)
-        players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-        game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
-
-        allow($stdin).to receive(:gets).and_return('7')
-        board.values = [
-          'X', '0', '0',
-          'O', 'O', 'X',
-          7, 'X', 'O'
-        ]
-
-        game_looper.loop
-
-        output = $stdout.string.split("\n")
-        expected_output = [
-          ' X | 0 | 0',
-          '---+---+---',
-          ' O | O | X',
-          '---+---+---',
-          ' 7 | X | O',
-          'Please choose a space.',
-          ' X | 0 | 0',
-          '---+---+---',
-          ' O | O | X',
-          '---+---+---',
-          ' X | X | O'
-        ]
-        expect(output).to eq(expected_output)
-
-        $stdout = original_stdout
-      end
-    end
-
     context 'given test doubles' do
       it 'loops until there is a draw' do
         ui = TestUI.new
         board = TestBoard.new
 
         outcome_checker = TestOutcomeCheckerAlwaysResultsInDraw.new(board:)
-
-        player_one = TestPlayer.new('X')
-        player_two = TestPlayer.new('O')
-        players = [player_one, player_two]
-
-        game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
-
-        game_looper.loop
-
-        expect(ui.output).to eq(['board displayed', 'board displayed'])
-      end
-    end
-
-    context 'given real objects', integration: true do
-      it 'loops until there is a win' do
-        original_stdout = $stdout
-        $stdout = StringIO.new
-
-        console = Console.new(stdin: $stdin, stdout: $stdout)
-        board = Board.new
-        outcome_checker = OutcomeChecker.new(board:)
-        number_validator = NumberValidator.new
-        prompter = Prompt.new(console:, number_validator:, board:)
-        display = Display.new(console:)
-        ui = UI.new(display:, prompter:)
-        players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-        game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
-
-        allow($stdin).to receive(:gets).and_return('9')
-        board.values = [
-          'X', 2, 3,
-          4, 'X', 6,
-          7, 8, 9
-        ]
-
-        game_looper.loop
-
-        output = $stdout.string.split("\n")
-        expected_output = [
-          ' X | 2 | 3',
-          '---+---+---',
-          ' 4 | X | 6',
-          '---+---+---',
-          ' 7 | 8 | 9',
-          'Please choose a space.',
-          ' X | 2 | 3',
-          '---+---+---',
-          ' 4 | X | 6',
-          '---+---+---',
-          ' 7 | 8 | X'
-        ]
-        expect(output).to eq(expected_output)
-
-        $stdout = original_stdout
-      end
-    end
-
-    context 'given test doubles' do
-      it 'loops until there is a win' do
-        ui = TestUI.new
-        board = TestBoard.new
-
-        outcome_checker = TestOutcomeCheckerAlwaysResultsInWin.new(board:)
 
         player_one = TestPlayer.new('X')
         player_two = TestPlayer.new('O')
@@ -274,6 +167,64 @@ describe 'Game Looper' do
         game_looper.loop
 
         expect(board.move_history).to eq(['Board with X in space 2', 'Board with O in space 8'])
+      end
+
+      class RecordMessages
+        def initialize()
+          @events = []
+        end
+        attr_reader :events
+
+        def display_board(board)
+          events << "display board"
+        end
+
+        def get_move
+          events << "prompt user"
+          1
+        end
+
+        def mark_space(marker, move)
+          events << "#{marker} moves to #{move}"
+        end
+      end
+
+      class HasOutcomeFor
+        def initialize(rounds:)
+          @rounds = Array.new(rounds + 1) { |i| true }
+        end
+
+        def in_progress?
+          @rounds.shift
+        end
+
+        # def on_outcome(winner:, draw:, in_progress:)
+        # end
+      
+      end
+
+
+      it "works" do
+        outcome_checker = HasOutcomeFor.new(rounds: 2)
+        # outcome_checker = HasOutcomeFor.new(rounds: 2, winner: "X")
+        player_one = TestPlayer.new('X')
+        player_two = TestPlayer.new('O')
+        players = [player_one, player_two]
+
+        messages = RecordMessages.new
+
+        game_looper = GameLooper.new(ui: messages, board: messages, players:, outcome_checker:)
+
+        game_looper.loop
+        expect(messages.events).to eq([
+          "display board",
+          "prompt user",
+          "mark space",
+          "display board",
+          "prompt user",
+          "display board",
+          "x wins"
+        ])
       end
     end
   end
