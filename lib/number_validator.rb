@@ -1,5 +1,3 @@
-require 'pry'
-
 class NumberValidator
   def valid?(input, range)
     integer?(input) && range.include?(Integer(input))

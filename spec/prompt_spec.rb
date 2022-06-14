@@ -32,9 +32,7 @@ describe 'Prompt' do
 
       prompt = Prompt.new(console:, number_validator:, board:)
 
-      message = 'Choose a space. Enter 1-9: '
-      error_message = 'Please enter a valid number.'
-      valid_input = prompt.call(message, error_message)
+      valid_input = prompt.call
 
       expect(valid_input).to eq(8)
     end
@@ -50,9 +48,9 @@ describe 'Prompt' do
 
       prompt = Prompt.new(console:, number_validator:, board:)
 
-      message = 'Choose a space. Enter 1-9: '
+      message = 'Please choose a space.'
       error_message = 'Please enter a valid number.'
-      valid_input = prompt.call(message, error_message)
+      valid_input = prompt.call
 
       expect(valid_input).to eq(1)
       expect(console.messages).to eq([message, error_message, message])

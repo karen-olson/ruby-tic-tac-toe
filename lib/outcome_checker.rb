@@ -11,6 +11,10 @@ class OutcomeChecker
     full_board?(board.combinations) && !win?
   end
 
+  def in_progress?
+    !win? && !draw?
+  end
+
   private
 
   attr_reader :board
