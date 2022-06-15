@@ -15,7 +15,7 @@ class GameLooper
   attr_reader :ui, :board, :players, :outcome_checker
 
   def game_is_over
-    !outcome_checker.in_progress?
+    outcome_checker.game_over?
   end
 
   def take_turns(players)

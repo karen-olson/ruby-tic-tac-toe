@@ -11,8 +11,8 @@ class OutcomeChecker
     full_board?(board.combinations) && !win?
   end
 
-  def in_progress?
-    !win? && !draw?
+  def game_over?
+    win? || draw?
   end
 
   private
