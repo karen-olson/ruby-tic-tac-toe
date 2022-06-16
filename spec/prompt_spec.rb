@@ -1,5 +1,4 @@
 require 'prompt'
-require 'pry'
 
 class TestConsole
   attr_accessor :messages

@@ -8,7 +8,6 @@ require 'number_validator'
 require 'outcome_checker'
 require 'ui'
 require 'stringio'
-require 'pry'
 
 class TestConsole
   attr_reader :messages
@@ -77,7 +76,7 @@ class TestOutcomeCheckerWinsAfterTwoTurns
     @board = board
     @game_over_values = [false, false, false, true]
   end
-  
+
   def game_over?
     game_over_values.shift
   end
@@ -127,7 +126,7 @@ describe 'Game Looper' do
         ui = TestUI.new(input: test_input)
 
         test_board = [
-          'X',  2, 'O',
+          'X', 2, 'O',
           'O', 'X', 'X',
           'O', 8, 'O'
         ]
@@ -146,65 +145,62 @@ describe 'Game Looper' do
       end
 
       class RecordMessages
-        def initialize()
+        def initialize
           @events = []
           @moves = [1, 2]
         end
-
-        attr_reader :events
-
-        def display_board(board)
-          events << "display board"
-        end
-
-        def get_move
-          events << "prompt user"
-          @moves.shift
-        end
-
-        def mark_space(marker, move)
-          events << "#{marker} moves to #{move}"
-        end
       end
 
-      class HasOutcomeFor
-        def initialize(rounds:)
-          @rounds = Array.new(rounds + 1) { |i| true }
-          @winner = winner
-        end
+      attr_reader :events
 
-        def in_progress?
-          @rounds.shift
-        end
-
-        def on_outcome(winner:, draw:, in_progress:)
-          
-        end
+      def display_board(_board)
+        events << 'display board'
       end
 
+      def get_move
+        events << 'prompt user'
+        @moves.shift
+      end
 
-      # it "works" do
-      #   outcome_checker = HasOutcomeFor.new(rounds: 2, winner: "O")
-      #   player_one = TestPlayer.new('X')
-      #   player_two = TestPlayer.new('O')
-      #   players = [player_one, player_two]
+      def mark_space(marker, move)
+        events << "#{marker} moves to #{move}"
+      end
+    end
 
-      #   messages = RecordMessages.new
+    class HasOutcomeFor
+      def initialize(rounds:)
+        @rounds = Array.new(rounds + 1) { |_i| true }
+        @winner = winner
+      end
 
-      #   game_looper = GameLooper.new(ui: messages, board: messages, players:, outcome_checker:)
+      def in_progress?
+        @rounds.shift
+      end
 
-      #   game_looper.loop
-      #   expect(messages.events).to eq([
-      #     "display board",
-      #     "prompt user",
-      #     "X moves to 1",
-      #     "display board",
-      #     "prompt user",
-      #     "O moves to 2",
-      #     "display board",
-      #     "O wins"
-      #   ])
-      # end
+      def on_outcome(winner:, draw:, in_progress:); end
+    end
+
+    it 'works' do
+      outcome_checker = HasOutcomeFor.new(rounds: 2, winner: 'O')
+      player_one = TestPlayer.new('X')
+      player_two = TestPlayer.new('O')
+      players = [player_one, player_two]
+
+      messages = RecordMessages.new
+
+      game_looper = GameLooper.new(ui: messages, board: messages, players:, outcome_checker:)
+
+      game_looper.loop
+      expect(messages.events).to eq([
+                                      'display board',
+                                      'prompt user',
+                                      'X moves to 1',
+                                      'display board',
+                                      'prompt user',
+                                      'O moves to 2',
+                                      'display board',
+                                      'O wins'
+                                    ])
     end
   end
 end

@@ -1,5 +1,4 @@
 require 'ui'
-require 'pry'
 
 class TestDisplayForUI
   attr_reader :displayed

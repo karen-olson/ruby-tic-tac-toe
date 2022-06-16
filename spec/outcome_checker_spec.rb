@@ -1,5 +1,4 @@
 require 'outcome_checker'
-require 'pry'
 
 class TestBoardForOutcomeChecker
   attr_accessor :test_combinations
