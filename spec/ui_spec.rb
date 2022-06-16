@@ -28,6 +28,23 @@ class TestPrompterForUI
   end
 end
 
+class TestOutcomeCheckerForUI
+  attr_reader :win_value, :draw_value
+
+  def initialize(win_value: false, draw_value: false)
+    @win_value = win_value
+    @draw_value = draw_value
+  end
+
+  def win?
+    win_value
+  end
+
+  def draw?
+    draw_value
+  end
+end
+
 describe 'UI' do
   describe '#display_board' do
     context 'given a 3x3 board' do
@@ -70,6 +87,36 @@ describe 'UI' do
         end
 
         expect(display.displayed).to eq(['Welcome to Tic Tac Toe!', 'Block called', 'Thank you for playing. Goodbye!'])
+      end
+    end
+  end
+
+  describe 'display_outcome' do
+    context 'when there is an outcome' do
+      it 'displays the correct win message' do
+        display = TestDisplayForUI.new
+        prompter = TestPrompterForUI.new
+        outcome_checker = TestOutcomeCheckerForUI.new(win_value: true)
+        final_player = 'X'
+
+        ui = UI.new(display:, prompter:)
+
+        ui.display_outcome(outcome_checker:, final_player:)
+
+        expect(display.displayed).to eq(['X is the winner!'])
+      end
+
+      it 'displays the correct draw message' do
+        display = TestDisplayForUI.new
+        prompter = TestPrompterForUI.new
+        outcome_checker = TestOutcomeCheckerForUI.new(draw_value: true)
+        final_player = 'X'
+
+        ui = UI.new(display:, prompter:)
+
+        ui.display_outcome(outcome_checker:, final_player:)
+
+        expect(display.displayed).to eq(['Draw 😕'])
       end
     end
   end
