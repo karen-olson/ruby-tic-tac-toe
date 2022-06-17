@@ -10,8 +10,8 @@ class Board
     values[index]
   end
 
-  def mark_space(token, space)
-    values[space - 1] = token
+  def mark_space(marker, move)
+    values[move - 1] = marker
   end
 
   def available?(input)

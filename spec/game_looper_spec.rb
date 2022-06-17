@@ -3,7 +3,7 @@ require 'game_looper'
 class TestPlayer
   attr_reader :marker
 
-  def initialize(marker)
+  def initialize(marker:)
     @marker = marker
   end
 end
@@ -52,8 +52,8 @@ describe 'Game Looper' do
   describe '#loop' do
     it 'loops through turns until the game is over' do
       outcome_checker = HasOutcomeFor.new(rounds: 2)
-      player_one = TestPlayer.new('X')
-      player_two = TestPlayer.new('O')
+      player_one = TestPlayer.new(marker: 'X')
+      player_two = TestPlayer.new(marker: 'O')
       players = [player_one, player_two]
 
       messages = RecordMessages.new

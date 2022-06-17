@@ -45,6 +45,13 @@ class TestOutcomeCheckerForUI
   end
 end
 
+class TestPlayerForUI
+  attr_reader :marker
+  def initialize(marker:)
+    @marker = marker
+  end
+end
+
 describe 'UI' do
   describe '#display_board' do
     context 'given a 3x3 board' do
@@ -97,7 +104,7 @@ describe 'UI' do
         display = TestDisplayForUI.new
         prompter = TestPrompterForUI.new
         outcome_checker = TestOutcomeCheckerForUI.new(win_value: true)
-        final_player = 'X'
+        final_player = TestPlayerForUI.new(marker: 'X')
 
         ui = UI.new(display:, prompter:)
 

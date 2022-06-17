@@ -37,7 +37,7 @@ class UI
   end
 
   def win_message(final_player)
-    "#{final_player} is the winner!"
+    "#{final_player.marker} is the winner!"
   end
 
   def draw_message

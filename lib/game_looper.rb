@@ -29,12 +29,13 @@ class GameLooper
   end
 
   def take_turn(player)
-    self.current_player = player.marker
+    self.current_player = player
     move = ui.get_move
     mark_board(player, move)
   end
 
   def mark_board(player, move)
-    board.mark_space(player.marker, move)
+    marker = player.marker
+    board.mark_space(marker, move)
   end
 end
