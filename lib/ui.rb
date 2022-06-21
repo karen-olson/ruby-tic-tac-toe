@@ -18,6 +18,12 @@ class UI
     display.message(goodbye_message)
   end
 
+  def display_outcome(outcome_checker:, final_player:)
+    display.message(win_message(final_player)) if outcome_checker.win?
+
+    display.message(draw_message) if outcome_checker.draw?
+  end
+
   private
 
   attr_reader :display, :prompter
@@ -28,5 +34,13 @@ class UI
 
   def goodbye_message
     'Thank you for playing. Goodbye!'
+  end
+
+  def win_message(final_player)
+    "#{final_player.marker} is the winner!"
+  end
+
+  def draw_message
+    'Draw 😕'
   end
 end

@@ -1,5 +1,3 @@
-require 'pry'
-
 class Console
   def initialize(stdout: $stdout, stdin: $stdin)
     @stdout = stdout

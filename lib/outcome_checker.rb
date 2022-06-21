@@ -3,16 +3,16 @@ class OutcomeChecker
     @board = board
   end
 
+  def game_over?
+    win? || draw?
+  end
+
   def win?
     winning_combo?(board.combinations)
   end
 
   def draw?
     full_board?(board.combinations) && !win?
-  end
-
-  def in_progress?
-    !win? && !draw?
   end
 
   private

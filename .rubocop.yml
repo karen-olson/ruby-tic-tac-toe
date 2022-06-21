@@ -12,6 +12,12 @@ Lint/EmptyClass:
   Enabled: false
 Naming/PredicateName:
   Enabled: false
+Lint/UnusedMethodArgument:
+  Exclude:
+  - spec/*
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+  - spec/*
 Naming/MethodParameterName:
   Exclude:
   - lib/game.rb
