@@ -13,7 +13,7 @@ class Game
     ui.with_greeting_and_salutation do
       loop
       ui.display_outcome(outcome_checker:, final_player: current_player)
-    end    
+    end
   end
 
   private

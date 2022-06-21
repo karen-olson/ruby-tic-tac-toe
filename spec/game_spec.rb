@@ -73,8 +73,8 @@ describe 'Game Looper' do
       game.play
 
       expect(messages.events).to eq([
-                        'welcome',              
-                        'display board',
+                                      'welcome',
+                                      'display board',
                                       'prompt user',
                                       'X moves to 1',
                                       'display board',

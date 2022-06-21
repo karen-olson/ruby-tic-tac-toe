@@ -47,7 +47,7 @@ describe 'Integration', integration: true do
       ' O | O | X',
       '---+---+---',
       ' X | X | O',
-      'Draw 😕', 
+      'Draw 😕',
       'Thank you for playing. Goodbye!'
     ]
     expect(output).to eq(expected_output)
@@ -92,7 +92,7 @@ describe 'Integration', integration: true do
       ' 4 | X | 6',
       '---+---+---',
       ' 7 | 8 | X',
-      'X is the winner!', 
+      'X is the winner!',
       'Thank you for playing. Goodbye!'
     ]
     expect(output).to eq(expected_output)
