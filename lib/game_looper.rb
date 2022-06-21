@@ -9,13 +9,20 @@ class GameLooper
     @current_player = players[0]
   end
 
-  def loop
-    take_turns(players) until game_is_over
+  def play
+    ui.with_greeting_and_salutation do
+      loop
+      ui.display_outcome(outcome_checker:, final_player: current_player)
+    end    
   end
 
   private
 
   attr_reader :ui, :board, :players, :outcome_checker
+
+  def loop
+    take_turns(players) until game_is_over
+  end
 
   def game_is_over
     outcome_checker.game_over?

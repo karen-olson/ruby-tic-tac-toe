@@ -28,6 +28,16 @@ class RecordMessages
   def mark_space(marker, move)
     events << "#{marker} moves to #{move}"
   end
+
+  def with_greeting_and_salutation(&block)
+    events << 'welcome'
+    block.call
+    events << 'goodbye'
+  end
+
+  def display_outcome(outcome_checker:, final_player:)
+    events << 'display outcome'
+  end
 end
 
 class HasOutcomeFor
@@ -49,8 +59,8 @@ class HasOutcomeFor
 end
 
 describe 'Game Looper' do
-  describe '#loop' do
-    it 'loops through turns until the game is over' do
+  describe '#play' do
+    it 'plays the game' do
       outcome_checker = HasOutcomeFor.new(rounds: 2)
       player_one = TestPlayer.new(marker: 'X')
       player_two = TestPlayer.new(marker: 'O')
@@ -60,15 +70,18 @@ describe 'Game Looper' do
 
       game_looper = GameLooper.new(ui: messages, board: messages, players:, outcome_checker:)
 
-      game_looper.loop
+      game_looper.play
 
       expect(messages.events).to eq([
-                                      'display board',
+                        'welcome',              
+                        'display board',
                                       'prompt user',
                                       'X moves to 1',
                                       'display board',
                                       'prompt user',
-                                      'O moves to 2'
+                                      'O moves to 2',
+                                      'display outcome',
+                                      'goodbye'
                                     ])
     end
   end

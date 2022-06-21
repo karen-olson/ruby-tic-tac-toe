@@ -10,7 +10,7 @@ require 'ui'
 require 'stringio'
 
 describe 'Integration', integration: true do
-  it 'loops until there is a draw' do
+  it 'plays a draw game' do
     original_stdout = $stdout
     $stdout = StringIO.new
 
@@ -31,10 +31,11 @@ describe 'Integration', integration: true do
       7, 'X', 'O'
     ]
 
-    game_looper.loop
+    game_looper.play
 
     output = $stdout.string.split("\n")
     expected_output = [
+      'Welcome to Tic Tac Toe!',
       ' X | 0 | 0',
       '---+---+---',
       ' O | O | X',
@@ -45,14 +46,16 @@ describe 'Integration', integration: true do
       '---+---+---',
       ' O | O | X',
       '---+---+---',
-      ' X | X | O'
+      ' X | X | O',
+      'Draw 😕', 
+      'Thank you for playing. Goodbye!'
     ]
     expect(output).to eq(expected_output)
 
     $stdout = original_stdout
   end
 
-  it 'loops until there is a win' do
+  it 'plays a game that has a winner' do
     original_stdout = $stdout
     $stdout = StringIO.new
 
@@ -73,10 +76,11 @@ describe 'Integration', integration: true do
       7, 8, 9
     ]
 
-    game_looper.loop
+    game_looper.play
 
     output = $stdout.string.split("\n")
     expected_output = [
+      'Welcome to Tic Tac Toe!',
       ' X | 2 | 3',
       '---+---+---',
       ' 4 | X | 6',
@@ -87,7 +91,9 @@ describe 'Integration', integration: true do
       '---+---+---',
       ' 4 | X | 6',
       '---+---+---',
-      ' 7 | 8 | X'
+      ' 7 | 8 | X',
+      'X is the winner!', 
+      'Thank you for playing. Goodbye!'
     ]
     expect(output).to eq(expected_output)
 

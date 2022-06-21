@@ -23,8 +23,4 @@ player_two = Player.new(marker: 'O')
 players = [player_one, player_two]
 game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
 
-ui.with_greeting_and_salutation do
-  game_looper.loop
-  final_player = game_looper.current_player
-  ui.display_outcome(outcome_checker:, final_player:)
-end
+game_looper.play
