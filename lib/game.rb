@@ -1,4 +1,4 @@
-class GameLooper
+class Game
   attr_accessor :current_player
 
   def initialize(ui:, board:, players:, outcome_checker:)

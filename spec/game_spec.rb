@@ -1,4 +1,4 @@
-require 'game_looper'
+require 'game'
 
 class TestPlayer
   attr_reader :marker
@@ -68,9 +68,9 @@ describe 'Game Looper' do
 
       messages = RecordMessages.new
 
-      game_looper = GameLooper.new(ui: messages, board: messages, players:, outcome_checker:)
+      game = Game.new(ui: messages, board: messages, players:, outcome_checker:)
 
-      game_looper.play
+      game.play
 
       expect(messages.events).to eq([
                         'welcome',              

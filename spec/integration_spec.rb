@@ -1,4 +1,4 @@
-require 'game_looper'
+require 'game'
 require 'console'
 require 'display'
 require 'prompt'
@@ -22,7 +22,7 @@ describe 'Integration', integration: true do
     display = Display.new(console:)
     ui = UI.new(display:, prompter:)
     players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-    game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
+    game = Game.new(ui:, board:, players:, outcome_checker:)
 
     allow($stdin).to receive(:gets).and_return('7')
     board.values = [
@@ -31,7 +31,7 @@ describe 'Integration', integration: true do
       7, 'X', 'O'
     ]
 
-    game_looper.play
+    game.play
 
     output = $stdout.string.split("\n")
     expected_output = [
@@ -67,7 +67,7 @@ describe 'Integration', integration: true do
     display = Display.new(console:)
     ui = UI.new(display:, prompter:)
     players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
-    game_looper = GameLooper.new(ui:, board:, players:, outcome_checker:)
+    game = Game.new(ui:, board:, players:, outcome_checker:)
 
     allow($stdin).to receive(:gets).and_return('9')
     board.values = [
@@ -76,7 +76,7 @@ describe 'Integration', integration: true do
       7, 8, 9
     ]
 
-    game_looper.play
+    game.play
 
     output = $stdout.string.split("\n")
     expected_output = [
