@@ -36,7 +36,7 @@ class Game
       take_turn(player) unless game_is_over
     end
   end
-  
+
   def take_turn(player)
     ui.display_board(board)
     self.current_player = player
