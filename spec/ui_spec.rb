@@ -1,100 +1,90 @@
 require 'ui'
 
-class TestDisplayForUI
-  attr_reader :displayed
+class RecordMessagesForUI
+  attr_reader :events
 
   def initialize
-    @displayed = []
+    @events = []
   end
 
   def present(board)
-    displayed << board
+    events << "#{board} displayed"
   end
 
   def message(message)
-    displayed << message
-  end
-end
-
-class TestPrompterForUI
-  attr_reader :called
-
-  def initialize
-    @called = []
+    events << "Displayed message '#{message}'"
   end
 
   def call
-    called << 'Prompter called'
+    events << 'Prompt called and user input returned'
   end
 end
 
-class TestOutcomeCheckerForUI
-  attr_reader :win_value, :draw_value
-
-  def initialize(win_value: false, draw_value: false)
-    @win_value = win_value
-    @draw_value = draw_value
-  end
-
+class HasOutcomeForWin
   def win?
-    win_value
+    true
   end
 
   def draw?
-    draw_value
+    false
   end
 end
 
-class TestPlayerForUI
-  attr_reader :marker
+class HasOutcomeForDraw
+  def win?
+    false
+  end
 
-  def initialize(marker:)
-    @marker = marker
+  def draw?
+    true
+  end
+end
+
+class TestPlayerX
+  def marker
+    'X'
   end
 end
 
 describe 'UI' do
-  describe '#display_board' do
-    context 'given a 3x3 board' do
-      it 'displays it to the user' do
-        display = TestDisplayForUI.new
-        prompter = TestPrompterForUI.new
-        ui = UI.new(display:, prompter:)
-        board = 'board displayed to user'
+  describe '#get_move' do
+    context 'when user input is requested' do
+      it "prompts the player and returns their move selection" do
+        messages = RecordMessagesForUI.new
+        ui = UI.new(display: messages, prompter: messages)
 
-        ui.display_board(board)
+        ui.get_move
 
-        expect(display.displayed).to eq(['board displayed to user'])
+        expect(messages.events).to eq(['Prompt called and user input returned'])
       end
     end
   end
 
-  describe '#get_move' do
-    context 'when user input is requested' do
-      it "gets the next player's move" do
-        display = TestDisplayForUI.new
-        prompter = TestPrompterForUI.new
-        ui = UI.new(display:, prompter:)
+  describe '#display_board' do
+    context 'given a 3x3 board' do
+      it 'displays it to the user' do
+        messages = RecordMessagesForUI.new
+        ui = UI.new(display: messages, prompter: messages)
 
-        ui.get_move
+        board = 'Test board'
+        ui.display_board(board)
 
-        expect(prompter.called).to eq(['Prompter called'])
+        expect(messages.events).to eq(['Test board displayed'])
       end
     end
   end
 
   describe '#with_greeting_and_salutation' do
     context 'when called' do
-      it 'displays messages to the user and executes the given block' do
-        display = TestDisplayForUI.new
-        prompter = TestPrompterForUI.new
-        ui = UI.new(display:, prompter:)
+      it 'displays welcome message, executes the given block, and displays goodbye message' do
+        messages = RecordMessagesForUI.new
+        ui = UI.new(display: messages, prompter: messages)
 
         ui.with_greeting_and_salutation do
-          display.message('Block called')
+          messages.message('Block called')
         end
 
-        expect(display.displayed).to eq(['Welcome to Tic Tac Toe!', 'Block called', 'Thank you for playing. Goodbye!'])
+        expect(messages.events).to eq(["Displayed message 'Welcome to Tic Tac Toe!'", "Displayed message 'Block called'", "Displayed message 'Thank you for playing. Goodbye!'"])
       end
     end
   end
@@ -102,29 +92,27 @@ describe 'UI' do
   describe 'display_outcome' do
     context 'when there is an outcome' do
       it 'displays the correct win message' do
-        display = TestDisplayForUI.new
-        prompter = TestPrompterForUI.new
-        outcome_checker = TestOutcomeCheckerForUI.new(win_value: true)
-        final_player = TestPlayerForUI.new(marker: 'X')
-
-        ui = UI.new(display:, prompter:)
+        messages = RecordMessagesForUI.new
+        ui = UI.new(display: messages, prompter: messages)
+        
+        outcome_checker = HasOutcomeForWin.new
+        final_player = TestPlayerX.new
 
         ui.display_outcome(outcome_checker:, final_player:)
 
-        expect(display.displayed).to eq(['X is the winner!'])
+        expect(messages.events).to eq(["Displayed message 'X is the winner!'"])
       end
 
       it 'displays the correct draw message' do
-        display = TestDisplayForUI.new
-        prompter = TestPrompterForUI.new
-        outcome_checker = TestOutcomeCheckerForUI.new(draw_value: true)
-        final_player = 'X'
-
-        ui = UI.new(display:, prompter:)
+        messages = RecordMessagesForUI.new
+        ui = UI.new(display: messages, prompter: messages)
+        
+        outcome_checker = HasOutcomeForDraw.new
+        final_player = TestPlayerX.new
 
         ui.display_outcome(outcome_checker:, final_player:)
 
-        expect(display.displayed).to eq(['Draw 😕'])
+        expect(messages.events).to eq(["Displayed message 'Draw 😕'"])
       end
     end
   end
