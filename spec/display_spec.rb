@@ -31,7 +31,7 @@ end
 describe 'Display' do
   context '#present' do
     it 'presents a formatted 3x3 board' do
-      console = TestConsole.new
+      console = TestConsoleForDisplay.new
       board = TestBoardForEmptyBoard.new
       display = Display.new(console:)
 
@@ -51,7 +51,7 @@ describe 'Display' do
 
   context '#message' do
     it 'prints the message to the console' do
-      console = TestConsole.new
+      console = TestConsoleForDisplay.new
       message = 'My message'
       display = Display.new(console:)
 

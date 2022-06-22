@@ -82,7 +82,7 @@ describe 'Prompt' do
 
       prompt_message = 'Please choose a space.'
       error_message = 'Please enter a valid number.'
-      
+
       expect(console.messages).to eq([prompt_message, error_message, prompt_message])
     end
   end

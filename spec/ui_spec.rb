@@ -49,7 +49,7 @@ end
 describe 'UI' do
   describe '#get_move' do
     context 'when user input is requested' do
-      it "prompts the player and returns their move selection" do
+      it 'prompts the player and returns their move selection' do
         messages = RecordMessagesForUI.new
         ui = UI.new(display: messages, prompter: messages)
 
@@ -84,7 +84,8 @@ describe 'UI' do
           messages.message('Block called')
         end
 
-        expect(messages.events).to eq(["Displayed message 'Welcome to Tic Tac Toe!'", "Displayed message 'Block called'", "Displayed message 'Thank you for playing. Goodbye!'"])
+        expect(messages.events).to eq(["Displayed message 'Welcome to Tic Tac Toe!'",
+                                       "Displayed message 'Block called'", "Displayed message 'Thank you for playing. Goodbye!'"])
       end
     end
   end
@@ -94,7 +95,7 @@ describe 'UI' do
       it 'displays the correct win message' do
         messages = RecordMessagesForUI.new
         ui = UI.new(display: messages, prompter: messages)
-        
+
         outcome_checker = HasOutcomeForWin.new
         final_player = TestPlayerX.new
 
@@ -106,7 +107,7 @@ describe 'UI' do
       it 'displays the correct draw message' do
         messages = RecordMessagesForUI.new
         ui = UI.new(display: messages, prompter: messages)
-        
+
         outcome_checker = HasOutcomeForDraw.new
         final_player = TestPlayerX.new
 
