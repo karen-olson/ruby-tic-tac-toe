@@ -3,7 +3,7 @@ class Console
     @stdin = stdin
     @stdout = stdout
   end
-  
+
   def gets_input
     stdin.gets.chomp
   end

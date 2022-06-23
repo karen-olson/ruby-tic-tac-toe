@@ -85,7 +85,8 @@ describe 'UI' do
         end
 
         expect(messages.events).to eq(["Displayed message 'Welcome to Tic Tac Toe!'",
-                                       "Displayed message 'Block called'", "Displayed message 'Thank you for playing. Goodbye!'"])
+                                       "Displayed message 'Block called'",
+                                       "Displayed message 'Thank you for playing. Goodbye!'"])
       end
     end
   end
