@@ -1,4 +1,4 @@
-require 'Open3'
+require 'open3'
 
 describe 'Acceptance', integration: true do
   it 'plays a draw game' do
