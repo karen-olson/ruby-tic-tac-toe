@@ -4,7 +4,6 @@ describe 'UI' do
   describe '#get_move' do
     context 'when user input is requested' do
       it 'prompts the player and returns their move' do
-
         class PromptsPlayerFor
           def initialize(move:)
             @move = move
@@ -18,14 +17,14 @@ describe 'UI' do
         class DoesNotDisplayOutput
         end
 
-        prompter = PromptsPlayerFor.new(move: "1")
+        prompter = PromptsPlayerFor.new(move: '1')
         no_display_needed = DoesNotDisplayOutput.new
 
         ui = UI.new(display: no_display_needed, prompter:)
 
         move = ui.get_move
 
-        expect(move).to eq("1")
+        expect(move).to eq('1')
       end
     end
   end
@@ -35,20 +34,21 @@ describe 'UI' do
       it 'displays it to the user' do
         class DisplaysOutput
           attr_reader :displayed
+
           def initialize
             @displayed = []
           end
-        
+
           def present(board)
             @displayed << board
           end
-        
+
           def message(message)
             @displayed << message
           end
         end
 
-        class DoesNotPromptPlayer 
+        class DoesNotPromptPlayer
         end
 
         display = DisplaysOutput.new
@@ -77,8 +77,8 @@ describe 'UI' do
         end
 
         expect(display.displayed).to eq(['Welcome to Tic Tac Toe!',
-                                       'Block called',
-                                       'Thank you for playing. Goodbye!'])
+                                         'Block called',
+                                         'Thank you for playing. Goodbye!'])
       end
     end
   end
@@ -95,7 +95,7 @@ describe 'UI' do
           def win?
             true
           end
-        
+
           def draw?
             false
           end
@@ -125,7 +125,7 @@ describe 'UI' do
           def win?
             false
           end
-        
+
           def draw?
             true
           end
@@ -151,7 +151,7 @@ describe 'UI' do
           def win?
             false
           end
-          
+
           def draw?
             false
           end
