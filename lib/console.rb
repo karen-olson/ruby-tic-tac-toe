@@ -1,18 +1,18 @@
 class Console
-  def initialize(stdout: $stdout, stdin: $stdin)
-    @stdout = stdout
+  def initialize(stdin: $stdin, stdout: $stdout)
     @stdin = stdin
-  end
-
-  def output(message)
-    stdout.puts message
+    @stdout = stdout
   end
 
   def gets_input
     stdin.gets.chomp
   end
 
+  def output(message)
+    stdout.puts message
+  end
+
   private
 
-  attr_reader :stdout, :stdin
+  attr_reader :stdin, :stdout
 end

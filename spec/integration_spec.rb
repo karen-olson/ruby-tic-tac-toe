@@ -11,10 +11,10 @@ require 'stringio'
 
 describe 'Integration', integration: true do
   it 'plays a draw game' do
-    original_stdout = $stdout
-    $stdout = StringIO.new
+    test_stdout = StringIO.new
+    test_stdin = StringIO.new('7')
 
-    console = Console.new(stdin: $stdin, stdout: $stdout)
+    console = Console.new(stdin: test_stdin, stdout: test_stdout)
     board = Board.new
     outcome_checker = OutcomeChecker.new(board:)
     number_validator = NumberValidator.new
@@ -24,7 +24,6 @@ describe 'Integration', integration: true do
     players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
     game = Game.new(ui:, board:, players:, outcome_checker:)
 
-    allow($stdin).to receive(:gets).and_return('7')
     board.values = [
       'X', '0', '0',
       'O', 'O', 'X',
@@ -33,33 +32,32 @@ describe 'Integration', integration: true do
 
     game.play
 
-    output = $stdout.string.split("\n")
-    expected_output = [
-      'Welcome to Tic Tac Toe!',
-      ' X | 0 | 0',
-      '---+---+---',
-      ' O | O | X',
-      '---+---+---',
-      ' 7 | X | O',
-      'Please choose a space.',
-      ' X | 0 | 0',
-      '---+---+---',
-      ' O | O | X',
-      '---+---+---',
-      ' X | X | O',
-      'Draw 😕',
-      'Thank you for playing. Goodbye!'
-    ]
-    expect(output).to eq(expected_output)
+    output = test_stdout.string
+    expected_output = <<~EXPECTED_OUTPUT
+      Welcome to Tic Tac Toe!
+       X | 0 | 0
+      ---+---+---
+       O | O | X
+      ---+---+---
+       7 | X | O
+      Please choose a space.
+       X | 0 | 0
+      ---+---+---
+       O | O | X
+      ---+---+---
+       X | X | O
+      Draw 😕
+      Thank you for playing. Goodbye!
+    EXPECTED_OUTPUT
 
-    $stdout = original_stdout
+    expect(output).to eq(expected_output)
   end
 
   it 'plays a game that has a winner' do
-    original_stdout = $stdout
-    $stdout = StringIO.new
+    test_stdout = StringIO.new
+    test_stdin = StringIO.new('9')
 
-    console = Console.new(stdin: $stdin, stdout: $stdout)
+    console = Console.new(stdin: test_stdin, stdout: test_stdout)
     board = Board.new
     outcome_checker = OutcomeChecker.new(board:)
     number_validator = NumberValidator.new
@@ -69,7 +67,6 @@ describe 'Integration', integration: true do
     players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
     game = Game.new(ui:, board:, players:, outcome_checker:)
 
-    allow($stdin).to receive(:gets).and_return('9')
     board.values = [
       'X', 2, 3,
       4, 'X', 6,
@@ -78,25 +75,24 @@ describe 'Integration', integration: true do
 
     game.play
 
-    output = $stdout.string.split("\n")
-    expected_output = [
-      'Welcome to Tic Tac Toe!',
-      ' X | 2 | 3',
-      '---+---+---',
-      ' 4 | X | 6',
-      '---+---+---',
-      ' 7 | 8 | 9',
-      'Please choose a space.',
-      ' X | 2 | 3',
-      '---+---+---',
-      ' 4 | X | 6',
-      '---+---+---',
-      ' 7 | 8 | X',
-      'X is the winner!',
-      'Thank you for playing. Goodbye!'
-    ]
-    expect(output).to eq(expected_output)
+    output = test_stdout.string
+    expected_output = <<~EXPECTED_OUTPUT
+      Welcome to Tic Tac Toe!
+       X | 2 | 3
+      ---+---+---
+       4 | X | 6
+      ---+---+---
+       7 | 8 | 9
+      Please choose a space.
+       X | 2 | 3
+      ---+---+---
+       4 | X | 6
+      ---+---+---
+       7 | 8 | X
+      X is the winner!
+      Thank you for playing. Goodbye!
+    EXPECTED_OUTPUT
 
-    $stdout = original_stdout
+    expect(output).to eq(expected_output)
   end
 end

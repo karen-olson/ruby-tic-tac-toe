@@ -80,6 +80,7 @@ describe 'Game Looper' do
                                       'display board',
                                       'prompt user',
                                       'O moves to 2',
+                                      'display board',
                                       'display outcome',
                                       'goodbye'
                                     ])
