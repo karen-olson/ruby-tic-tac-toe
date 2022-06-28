@@ -7,5 +7,7 @@ class Player
     post_initialize(opts)
   end
 
+  private
+
   def post_initialize(opts); end
 end

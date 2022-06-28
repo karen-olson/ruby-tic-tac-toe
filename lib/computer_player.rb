@@ -1,9 +1,7 @@
 require_relative './player'
 
 class ComputerPlayer < Player
-  def post_initialize(opts)
-    @board = opts[:board]
-  end
+  attr_reader :board
 
   def select_space
     first_available_space = (1..9).find { |space| board.available?(space) }
@@ -12,5 +10,7 @@ class ComputerPlayer < Player
 
   private
 
-  attr_reader :board
+  def post_initialize(opts)
+    @board = opts[:board]
+  end
 end

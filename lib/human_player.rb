@@ -1,9 +1,7 @@
 require_relative './player'
 
 class HumanPlayer < Player
-  def post_initialize(opts)
-    @console = opts[:console]
-  end
+  attr_reader :console
 
   def select_space
     console.gets_input
@@ -11,5 +9,7 @@ class HumanPlayer < Player
 
   private
 
-  attr_reader :console
+  def post_initialize(opts)
+    @console = opts[:console]
+  end
 end
