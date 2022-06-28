@@ -21,7 +21,7 @@ describe 'Integration', integration: true do
     prompter = Prompt.new(console:, number_validator:, board:)
     display = Display.new(console:)
     ui = UI.new(display:, prompter:)
-    players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
+    players = [HumanPlayer.new(marker: 'X', console:), HumanPlayer.new(marker: 'O', console:)]
     game = Game.new(ui:, board:, players:, outcome_checker:)
 
     board.values = [
@@ -64,7 +64,7 @@ describe 'Integration', integration: true do
     prompter = Prompt.new(console:, number_validator:, board:)
     display = Display.new(console:)
     ui = UI.new(display:, prompter:)
-    players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
+    players = [HumanPlayer.new(marker: 'X', console:), HumanPlayer.new(marker: 'O', console:)]
     game = Game.new(ui:, board:, players:, outcome_checker:)
 
     board.values = [

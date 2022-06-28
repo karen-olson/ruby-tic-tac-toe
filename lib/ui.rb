@@ -4,8 +4,8 @@ class UI
     @prompter = prompter
   end
 
-  def get_move
-    prompter.call
+  def get_move(player:)
+    prompter.call(player:)
   end
 
   def display_board(board)

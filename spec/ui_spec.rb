@@ -9,7 +9,7 @@ describe 'UI' do
             @move = move
           end
 
-          def call
+          def call(player:)
             @move
           end
         end
@@ -17,12 +17,16 @@ describe 'UI' do
         class DoesNotDisplayOutput
         end
 
+        class TestPlayerForUI
+        end
+
+        player = TestPlayerForUI.new
         prompter = PromptsPlayerFor.new(move: '1')
         no_display_needed = DoesNotDisplayOutput.new
 
         ui = UI.new(display: no_display_needed, prompter:)
 
-        move = ui.get_move
+        move = ui.get_move(player:)
 
         expect(move).to eq('1')
       end

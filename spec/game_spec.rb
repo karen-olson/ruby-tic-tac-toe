@@ -3,7 +3,7 @@ require 'game'
 class TestPlayer
   attr_reader :marker
 
-  def initialize(marker:)
+  def initialize(marker:, console:)
     @marker = marker
   end
 end
@@ -20,7 +20,7 @@ class RecordMessages
     events << 'display board'
   end
 
-  def get_move
+  def get_move(player:)
     events << 'prompt user'
     @moves.shift
   end
@@ -58,15 +58,20 @@ class HasOutcomeFor
   end
 end
 
-describe 'Game Looper' do
+class TestConsoleForGame
+end
+
+describe 'Game' do
   describe '#play' do
     it 'plays the game' do
-      outcome_checker = HasOutcomeFor.new(rounds: 2)
-      player_one = TestPlayer.new(marker: 'X')
-      player_two = TestPlayer.new(marker: 'O')
+      messages = RecordMessages.new
+
+      console = TestConsoleForGame.new
+      player_one = TestPlayer.new(marker: 'X', console:)
+      player_two = TestPlayer.new(marker: 'O', console:)
       players = [player_one, player_two]
 
-      messages = RecordMessages.new
+      outcome_checker = HasOutcomeFor.new(rounds: 2)
 
       game = Game.new(ui: messages, board: messages, players:, outcome_checker:)
 
