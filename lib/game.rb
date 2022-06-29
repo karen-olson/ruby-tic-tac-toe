@@ -38,7 +38,6 @@ class Game
   def take_turn(player)
     ui.display_board(board)
     self.current_player = player
-    # move = ui.get_move
     move = player.select_space
     mark_board(player, move)
   end
