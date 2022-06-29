@@ -1,9 +1,10 @@
 require 'ui'
 
 describe 'UI' do
+
   describe '#get_move' do
-    context 'when user input is requested' do
-      it 'prompts the player and returns their move' do
+    context 'when human player input is requested' do
+      it 'prompts the human player and returns their move' do
         class PromptsPlayerFor
           def initialize(move:)
             @move = move

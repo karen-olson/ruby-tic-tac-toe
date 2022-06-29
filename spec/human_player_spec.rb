@@ -4,7 +4,7 @@ describe 'Human Player' do
     describe '#marker' do
         it 'returns the correct marker' do
             class TestUIforHumanPlayer
-                def get_selection
+                def get_move
                     '1'
                 end
             end

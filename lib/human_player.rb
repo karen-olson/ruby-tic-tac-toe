@@ -7,7 +7,7 @@ class HumanPlayer
     end
 
     def select_space
-        ui.get_selection
+        ui.get_move
     end
 
     private
