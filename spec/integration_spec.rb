@@ -3,7 +3,7 @@ require 'console'
 require 'display'
 require 'prompt'
 require 'board'
-require 'player'
+require 'human_player'
 require 'number_validator'
 require 'outcome_checker'
 require 'ui'
@@ -21,7 +21,7 @@ describe 'Integration', integration: true do
     prompter = Prompt.new(console:, number_validator:, board:)
     display = Display.new(console:)
     ui = UI.new(display:, prompter:)
-    players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
+    players = [HumanPlayer.new(marker: 'X', ui:), HumanPlayer.new(marker: 'O', ui:)]
     game = Game.new(ui:, board:, players:, outcome_checker:)
 
     board.values = [
@@ -64,7 +64,7 @@ describe 'Integration', integration: true do
     prompter = Prompt.new(console:, number_validator:, board:)
     display = Display.new(console:)
     ui = UI.new(display:, prompter:)
-    players = [Player.new(marker: 'X'), Player.new(marker: 'O')]
+    players = [HumanPlayer.new(marker: 'X', ui:), HumanPlayer.new(marker: 'O', ui:)]
     game = Game.new(ui:, board:, players:, outcome_checker:)
 
     board.values = [

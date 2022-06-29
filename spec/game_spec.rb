@@ -1,10 +1,15 @@
 require 'game'
 
-class TestPlayer
-  attr_reader :marker
+class TestHumanPlayer
+  attr_reader :marker, :ui
 
-  def initialize(marker:)
+  def initialize(marker:, ui:)
     @marker = marker
+    @ui = ui
+  end
+
+  def select_space
+    ui.get_move
   end
 end
 
@@ -58,15 +63,15 @@ class HasOutcomeFor
   end
 end
 
-describe 'Game Looper' do
+describe 'Game' do
   describe '#play' do
     it 'plays the game' do
+      messages = RecordMessages.new
       outcome_checker = HasOutcomeFor.new(rounds: 2)
-      player_one = TestPlayer.new(marker: 'X')
-      player_two = TestPlayer.new(marker: 'O')
+      player_one = TestHumanPlayer.new(marker: 'X', ui: messages)
+      player_two = TestHumanPlayer.new(marker: 'O', ui: messages)
       players = [player_one, player_two]
 
-      messages = RecordMessages.new
 
       game = Game.new(ui: messages, board: messages, players:, outcome_checker:)
 
