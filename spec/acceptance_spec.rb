@@ -2,7 +2,7 @@ require 'open3'
 
 describe 'Acceptance', integration: true do
   it 'plays a draw game' do
-    stdout_str, status = Open3.capture2('ruby bin/run', stdin_data: "2\n4\n6\n7\n9\n")
+    stdout_str, status = Open3.capture2('ruby bin/run', stdin_data: "1\n5\n6\n8\n3\n")
 
     output = stdout_str.downcase
 

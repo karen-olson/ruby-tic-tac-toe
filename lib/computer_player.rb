@@ -4,9 +4,31 @@ class ComputerPlayer
   def initialize(marker:, board:)
     @marker = marker
     @board = board
+    @selections = []
+
+    set_selections
   end
 
   def select_space
-    (1..9).find { |space| board.available?(space) }
+    selection = selections.shift
+
+    selection = selections.shift until board.available?(selection)
+
+    selection
+  end
+
+  private
+
+  attr_accessor :selections
+
+  def set_selections
+    srand 1234
+
+    until selections.length == 9
+      space = rand(1..9)
+      selections << space unless selections.include?(space)
+    end
+
+    selections
   end
 end
