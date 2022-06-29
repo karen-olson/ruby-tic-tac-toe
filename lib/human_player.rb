@@ -1,16 +1,16 @@
 class HumanPlayer
-    attr_reader :marker
-    
-    def initialize(marker:, ui:)
-        @marker = marker
-        @ui = ui
-    end
+  attr_reader :marker
 
-    def select_space
-        ui.get_move
-    end
+  def initialize(marker:, ui:)
+    @marker = marker
+    @ui = ui
+  end
 
-    private
+  def select_space
+    ui.get_move
+  end
 
-    attr_reader :ui
+  private
+
+  attr_reader :ui
 end
