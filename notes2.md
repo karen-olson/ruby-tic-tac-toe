@@ -47,3 +47,17 @@ One idea:
   - At that point, go back and add line 27 to flesh out the first test. 
   - Could add line 29 to make a set of related expect statements into a custom matcher so that it's clear what you're doing, but that's also a lot more effort
     than just putting a few related expect statements next to each other. 
+
+
+## Potential Refactorings
+
+### Number Validator
+
+- Initialize with a range instead of passing the range in to valid?
+
+### Prompt
+
+- Remove @valid input from initialize
+- Remove range
+- Put console.output and console.gets_input into private helper method
+- Change implementation like in last PR so number validation and availability validation are separated, and a separate error message is displayed for each case. 
