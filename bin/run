@@ -8,6 +8,7 @@ require_relative '../lib/board'
 require_relative '../lib/number_validator'
 require_relative '../lib/outcome_checker'
 require_relative '../lib/human_player'
+require_relative '../lib/computer_player'
 require_relative '../lib/ui'
 
 console = Console.new(stdout: $stdout, stdin: $stdin)
@@ -19,7 +20,7 @@ prompter = Prompt.new(console:, number_validator:,
                       board:)
 ui = UI.new(display:, prompter:)
 player_one = HumanPlayer.new(marker: 'X', ui:)
-player_two = HumanPlayer.new(marker: 'O', ui:)
+player_two = ComputerPlayer.new(marker: 'O', board:)
 players = [player_one, player_two]
 game = Game.new(ui:, board:, players:, outcome_checker:)
 
