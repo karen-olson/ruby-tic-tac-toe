@@ -1,15 +1,14 @@
 class RandomNumberGenerator
+  def initialize(range:, rand: method(:rand))
+    @range = range
+    @rand = rand
+  end
 
-    def initialize(range:)
-        @range = range
-        srand 1234
-    end
+  def random_number
+    @rand.call(range)
+  end
 
-    def random_number
-        rand(range)
-    end
+  private
 
-    private
-
-    attr_reader :range
+  attr_reader :range
 end

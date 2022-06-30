@@ -10,6 +10,9 @@ Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 Lint/EmptyClass:
   Enabled: false
+Lint/ShadowingOuterLocalVariable:
+  Exclude:
+  - spec/random_number_generator_spec.rb
 Naming/PredicateName:
   Enabled: false
 Lint/UnusedMethodArgument:

@@ -49,7 +49,8 @@ describe 'Computer Player' do
     it 'returns the correct marker' do
       empty = EmptyBoard.new
       pseudo_random_number_generator = PseudoRandomNumberGenerator.new(range: 1..9)
-      computer_player = ComputerPlayer.new(marker: 'X', board: empty, random_number_generator: pseudo_random_number_generator)
+      computer_player = ComputerPlayer.new(marker: 'X', board: empty,
+                                           random_number_generator: pseudo_random_number_generator)
 
       marker = computer_player.marker
 
@@ -62,7 +63,8 @@ describe 'Computer Player' do
       it 'returns a predictable random space' do
         empty = EmptyBoard.new
         pseudo_random_number_generator = PseudoRandomNumberGenerator.new(range: 1..9)
-        computer_player = ComputerPlayer.new(marker: 'X', board: empty, random_number_generator: pseudo_random_number_generator)
+        computer_player = ComputerPlayer.new(marker: 'X', board: empty,
+                                             random_number_generator: pseudo_random_number_generator)
 
         selections = []
 
@@ -78,7 +80,8 @@ describe 'Computer Player' do
       it 'returns a predictable random available space' do
         one_thru_five_available = SpacesOneThroughFiveAvailable.new
         pseudo_random_number_generator = PseudoRandomNumberGenerator.new(range: 1..9)
-        computer_player = ComputerPlayer.new(marker: 'X', board: one_thru_five_available, random_number_generator: pseudo_random_number_generator)
+        computer_player = ComputerPlayer.new(marker: 'X', board: one_thru_five_available,
+                                             random_number_generator: pseudo_random_number_generator)
 
         selections = []
 

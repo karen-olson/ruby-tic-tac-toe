@@ -2,7 +2,7 @@ require 'open3'
 
 describe 'Acceptance' do
   it 'plays a draw game' do
-    stdout_str, status = Open3.capture2('ruby bin/run', stdin_data: "1\n5\n6\n8\n3\n")
+    stdout_str, status = Open3.capture2('SEED=1234 ruby bin/run', stdin_data: "1\n5\n6\n8\n3\n")
 
     output = stdout_str.downcase
 
@@ -11,7 +11,7 @@ describe 'Acceptance' do
   end
 
   it 'plays a winning game' do
-    stdout_str, status = Open3.capture2('ruby bin/run', stdin_data: "1\n5\n9\n")
+    stdout_str, status = Open3.capture2('SEED=1234 ruby bin/run', stdin_data: "1\n5\n9\n")
 
     output = stdout_str.downcase
 
