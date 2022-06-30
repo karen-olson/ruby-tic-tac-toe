@@ -6,6 +6,7 @@ require_relative '../lib/display'
 require_relative '../lib/prompt'
 require_relative '../lib/board'
 require_relative '../lib/number_validator'
+require_relative '../lib/random_number_generator'
 require_relative '../lib/outcome_checker'
 require_relative '../lib/human_player'
 require_relative '../lib/computer_player'
@@ -19,8 +20,9 @@ number_validator = NumberValidator.new
 prompter = Prompt.new(console:, number_validator:,
                       board:)
 ui = UI.new(display:, prompter:)
+random_number_generator = RandomNumberGenerator.new(range: 1..9)
 player_one = HumanPlayer.new(marker: 'X', ui:)
-player_two = ComputerPlayer.new(marker: 'O', board:)
+player_two = ComputerPlayer.new(marker: 'O', board:, random_number_generator:)
 players = [player_one, player_two]
 game = Game.new(ui:, board:, players:, outcome_checker:)
 

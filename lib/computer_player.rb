@@ -1,9 +1,12 @@
-class ComputerPlayer
-  attr_reader :marker, :board
+require 'pry'
 
-  def initialize(marker:, board:)
+class ComputerPlayer
+  attr_reader :marker, :board, :random_number_generator
+
+  def initialize(marker:, board:, random_number_generator:)
     @marker = marker
     @board = board
+    @random_number_generator = random_number_generator
     @selections = []
 
     set_selections
@@ -22,10 +25,8 @@ class ComputerPlayer
   attr_accessor :selections
 
   def set_selections
-    srand 1234
-
     until selections.length == 9
-      space = rand(1..9)
+      space = random_number_generator.random_number
       selections << space unless selections.include?(space)
     end
 
