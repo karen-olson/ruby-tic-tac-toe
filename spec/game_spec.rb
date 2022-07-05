@@ -1,17 +1,10 @@
 require 'game'
 
-class TestPlayer
-  attr_reader :marker
-
-  def initialize(marker:)
-    @marker = marker
-  end
-end
-
 class RecordMessages
   def initialize
     @events = []
-    @moves = [1, 2]
+    @selections = [1, 2]
+    @markers = ['X', 'O']
   end
 
   attr_reader :events
@@ -20,9 +13,13 @@ class RecordMessages
     events << 'display board'
   end
 
-  def get_move
-    events << 'prompt user'
-    @moves.shift
+  def select_space
+    events << 'select space'
+    @selections.shift
+  end
+
+  def marker
+    @markers.shift
   end
 
   def mark_space(marker, move)
@@ -58,27 +55,23 @@ class HasOutcomeFor
   end
 end
 
-describe 'Game Looper' do
+describe 'Game' do
   describe '#play' do
     it 'plays the game' do
-      outcome_checker = HasOutcomeFor.new(rounds: 2)
-      player_one = TestPlayer.new(marker: 'X')
-      player_two = TestPlayer.new(marker: 'O')
-      players = [player_one, player_two]
-
       messages = RecordMessages.new
+      outcome_checker = HasOutcomeFor.new(rounds: 2)
 
-      game = Game.new(ui: messages, board: messages, players:, outcome_checker:)
+      game = Game.new(ui: messages, board: messages, players: [messages, messages], outcome_checker:)
 
       game.play
 
       expect(messages.events).to eq([
                                       'welcome',
                                       'display board',
-                                      'prompt user',
+                                      'select space',
                                       'X moves to 1',
                                       'display board',
-                                      'prompt user',
+                                      'select space',
                                       'O moves to 2',
                                       'display board',
                                       'display outcome',

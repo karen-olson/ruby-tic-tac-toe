@@ -22,6 +22,7 @@ class Display
        #{board.get_space(1, 0)} | #{board.get_space(1, 1)} | #{board.get_space(1, 2)}
       ---+---+---
        #{board.get_space(2, 0)} | #{board.get_space(2, 1)} | #{board.get_space(2, 2)}
+      #{' '}
     BOARD
   end
 end

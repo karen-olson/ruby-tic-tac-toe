@@ -10,6 +10,9 @@ Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: false
 Lint/EmptyClass:
   Enabled: false
+Lint/ShadowingOuterLocalVariable:
+  Exclude:
+  - spec/random_number_generator_spec.rb
 Naming/PredicateName:
   Enabled: false
 Lint/UnusedMethodArgument:
@@ -21,13 +24,14 @@ Lint/ConstantDefinitionInBlock:
 Naming/MethodParameterName:
   Exclude:
   - lib/game.rb
-  - lib/game_looper.rb
+  - lib/human_player.rb
 Metrics/BlockLength:
   Exclude:
   - spec/*
 Metrics/MethodLength:
   Exclude:
   - spec/display_spec.rb
+  - spec/computer_player_spec.rb
 Metrics/ParameterLists:
   Enabled: false
 AllCops:
