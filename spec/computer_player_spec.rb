@@ -33,14 +33,13 @@ class SpacesOneThroughFiveAvailable
   end
 end
 
-class PseudoRandomNumberGenerator
-  def initialize(range:)
-    @range = range
-    srand 1234
+class PredictableNumberGenerator
+  def initialize
+    @numbers = [4, 7, 6, 5, 9, 2, 8, 1, 3]
   end
 
   def random_number
-    rand(@range)
+    @numbers.shift
   end
 end
 
@@ -48,7 +47,7 @@ describe 'Computer Player' do
   describe '#marker' do
     it 'returns the correct marker' do
       empty = EmptyBoard.new
-      pseudo_random_number_generator = PseudoRandomNumberGenerator.new(range: 1..9)
+      pseudo_random_number_generator = PredictableNumberGenerator.new
       computer_player = ComputerPlayer.new(marker: 'X', board: empty,
                                            random_number_generator: pseudo_random_number_generator)
 
@@ -62,7 +61,7 @@ describe 'Computer Player' do
     context 'when the board is empty' do
       it 'returns a predictable random space' do
         empty = EmptyBoard.new
-        pseudo_random_number_generator = PseudoRandomNumberGenerator.new(range: 1..9)
+        pseudo_random_number_generator = PredictableNumberGenerator.new
         computer_player = ComputerPlayer.new(marker: 'X', board: empty,
                                              random_number_generator: pseudo_random_number_generator)
 
@@ -79,7 +78,7 @@ describe 'Computer Player' do
     context 'when the board is not empty' do
       it 'returns a predictable random available space' do
         one_thru_five_available = SpacesOneThroughFiveAvailable.new
-        pseudo_random_number_generator = PseudoRandomNumberGenerator.new(range: 1..9)
+        pseudo_random_number_generator = PredictableNumberGenerator.new
         computer_player = ComputerPlayer.new(marker: 'X', board: one_thru_five_available,
                                              random_number_generator: pseudo_random_number_generator)
 
