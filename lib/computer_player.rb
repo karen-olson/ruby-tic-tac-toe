@@ -1,5 +1,3 @@
-require 'pry'
-
 class ComputerPlayer
   attr_reader :marker, :board, :random_number_generator
 

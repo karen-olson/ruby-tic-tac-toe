@@ -20,7 +20,7 @@ number_validator = NumberValidator.new
 prompter = Prompt.new(console:, number_validator:,
                       board:)
 ui = UI.new(display:, prompter:)
-random = Random.new(ENV['SEED'].to_i || Random.new_seed)
+random = Random.new(ENV['SEED']&.to_i || Random.new_seed)
 rand = ->(range) { random.rand(range) }
 random_number_generator = RandomNumberGenerator.new(range: 1..9, rand:)
 player_one = HumanPlayer.new(marker: 'X', ui:)
