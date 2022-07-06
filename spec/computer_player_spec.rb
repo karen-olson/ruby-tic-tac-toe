@@ -1,5 +1,4 @@
 require 'computer_player'
-require 'pry'
 
 class EmptyBoard
   def available?(space)
